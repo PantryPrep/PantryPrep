@@ -13,7 +13,7 @@ import com.sonnytron.sortatech.pantryprep.Models.Common.Attribution;
 import com.sonnytron.sortatech.pantryprep.Models.Common.Flavors;
 
 
-public class Recipe {
+public class RecipeDetail {
 
     @SerializedName("yield")
     @Expose

@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import com.sonnytron.sortatech.pantryprep.Models.Common.Attribution;
 
 
-public class Query {
+public class RecipeQuery {
 
     @SerializedName("attribution")
     @Expose
