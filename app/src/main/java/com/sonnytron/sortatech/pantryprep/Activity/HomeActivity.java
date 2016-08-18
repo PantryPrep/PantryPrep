@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -45,8 +46,13 @@ public class HomeActivity extends AppCompatActivity {
         mDrawer.addDrawerListener(mDrawerToggle);
     }
 
-    private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
+    public void recipeActivityHandler(View view)
+    {
+//        Intent i = new Intent(this, RecipeLookupActivity.class);
+//        startActivity(i);
+        FragmentManager fm = getSupportFragmentManager();
+
+
     }
 
     private void setupDrawerContent(NavigationView navigationView) {

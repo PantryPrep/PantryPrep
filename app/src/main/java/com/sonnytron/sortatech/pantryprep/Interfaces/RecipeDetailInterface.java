@@ -12,17 +12,12 @@ import retrofit2.http.Query;
 /**
  * Created by Steve on 8/16/2016.
  */
-public interface YummlyInterface {
-
-    @GET("recipes?")
-    Call<RecipeQuery> getResponse(@Query("_app_id") String apiKey,
-                                  @Query("_app_key") String query,
-                                  @Query("q") int page);
+public interface RecipeDetailInterface {
 
     @GET("/recipe/{id}?")
     Call<RecipeDetail> getResponse(@Path("id") String recipeId,
-                                   @Query("_app_id") String apiKey,
-                                   @Query("_app_key") String query);
+                                   @Query("_app_id") String appId,
+                                   @Query("_app_key") String appKey);
 
 
 
