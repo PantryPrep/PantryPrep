@@ -48,20 +48,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         return new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
-    public void recipeActivityHandler(View view)
-    {
-//        Intent i = new Intent(this, RecipeLookupActivity.class);
-//        startActivity(i);
-        FragmentManager fm = getSupportFragmentManager();
-
-
-    public void recipeActivityHandler(View view)
-    {
-//        Intent i = new Intent(this, RecipeLookupActivity.class);
-//        startActivity(i);
-        FragmentManager fm = getSupportFragmentManager();
-
-
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
