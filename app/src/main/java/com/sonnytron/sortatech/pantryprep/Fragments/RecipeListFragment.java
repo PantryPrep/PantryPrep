@@ -31,7 +31,6 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 public class RecipeListFragment extends Fragment {
 
     static final String APP_KEY = "3efb080dfe0c83724c37f5a0da27dbe8";
@@ -46,11 +45,9 @@ public class RecipeListFragment extends Fragment {
 
     Network networkHelper;
 
-
     public RecipeListFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -167,9 +164,6 @@ public class RecipeListFragment extends Fragment {
         recipeListAdapter.notifyDataSetChanged();
 
     }
-
-
-
 
 }
 
