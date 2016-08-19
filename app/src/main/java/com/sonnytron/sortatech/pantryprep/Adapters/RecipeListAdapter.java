@@ -2,7 +2,6 @@ package com.sonnytron.sortatech.pantryprep.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.sonnytron.sortatech.pantryprep.Models.Recipes.RecipeDetail;
+import com.sonnytron.sortatech.pantryprep.Activity.RecipeLookupActivity;
+import com.sonnytron.sortatech.pantryprep.Helpers.ProgressDialogHelper;
+import com.sonnytron.sortatech.pantryprep.Models.Query.Match;
 import com.sonnytron.sortatech.pantryprep.R;
 
 import java.util.List;
@@ -23,9 +24,9 @@ import java.util.List;
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder>{
 
     private Context mContext;
-    //list of recipes.  Large recipe image under "RecipeDetail",
-    private List<RecipeDetail> mRecipes;
-
+    //list of recipes.  Large recipe image under "RecipeDetails",
+    private List<Match> mRecipesMatches;
+    private ProgressDialogHelper pd;
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -59,9 +60,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         }
     }
 
-    public RecipeListAdapter(Context context, List<RecipeDetail> recipeDetails) {
+    public RecipeListAdapter(Context context, List<Match> recipeDetails) {
         mContext = context;
-        mRecipes = recipeDetails;
+        mRecipesMatches = recipeDetails;
 
     }
 
@@ -70,14 +71,26 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View recipeView = inflater.inflate(R.layout.recipe_list, parent, false);
+        pd = new ProgressDialogHelper();
 
 
         ViewHolder viewHolder = new ViewHolder(recipeView, new ViewHolder.OnViewHolderClickListener(){
 
+            //do logic for item click on here.
             @Override
             public void onItemClick(View caller, int position) {
-                //fill out data on activity.
-                Log.d("onItemClick: ", "recipe item clicked");
+                Match clickedMatch = mRecipesMatches.get(position);
+
+
+                //launch intent to inflate recipe lookup activity.
+                Intent i = new Intent(getContext(), RecipeLookupActivity.class);
+                //need recipe ID to look up.
+                i.putExtra("recipe_id", clickedMatch.getId());
+                pd.launchProgressDialog(getContext());
+                mContext.startActivity(i);
+                pd.disableProgressDialog();
+
+                Log.d("onItemClick: ", clickedMatch.getId());
             }
         });
 
@@ -86,19 +99,20 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
     @Override
     public void onBindViewHolder(RecipeListAdapter.ViewHolder holder, int position) {
-        RecipeDetail recipe = mRecipes.get(position);
+        Match recipeMatch = mRecipesMatches.get(position);
 
         TextView recipeTitle = holder.tvRecipeTitle;
         ImageView recipePicture = holder.ivRecipeImage;
 
-        List<com.sonnytron.sortatech.pantryprep.Models.Recipes.Image> imageList = recipe.getImages();
+        List<String> smallImageUrl = recipeMatch.getSmallImageUrls();
 
         //set data in recycler view.
-        recipeTitle.setText(recipe.getName());
-        if (imageList.size() > 0) {
+        recipeTitle.setText(recipeMatch.getRecipeName());
 
+        //if we have an image, print it.
+        if (smallImageUrl.size() > 0) {
             Glide.with(getContext())
-                    .load(imageList.get(0).getHostedLargeUrl())
+                    .load(smallImageUrl.get(0))
                     //.placeholder()
                     .into(recipePicture);
         }
@@ -106,7 +120,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return mRecipes.size();
+        return mRecipesMatches.size();
     }
 
 
@@ -118,10 +132,10 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
     //wipe data.
     public void clearData() {
-        int size = this.mRecipes.size();
+        int size = this.mRecipesMatches.size();
         if (size > 0) {
             for (int i = 0; i < size; i++) {
-                this.mRecipes.remove(0);
+                this.mRecipesMatches.remove(0);
             }
 
             this.notifyItemRangeRemoved(0, size);

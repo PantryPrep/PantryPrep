@@ -1,5 +1,6 @@
 package com.sonnytron.sortatech.pantryprep.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
@@ -14,12 +15,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientsListFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.RecipeListFragment;
+import com.sonnytron.sortatech.pantryprep.Helpers.ProgressDialogHelper;
 import com.sonnytron.sortatech.pantryprep.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -27,6 +30,7 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
+    private ProgressDialogHelper pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,9 @@ public class HomeActivity extends AppCompatActivity {
         setupDrawerContent(nvDrawer);
 
         mDrawer.addDrawerListener(mDrawerToggle);
+
+        //load progress dialog to show loading screens.
+        pd = new ProgressDialogHelper();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -68,6 +75,7 @@ public class HomeActivity extends AppCompatActivity {
                 fragmentClass = IngredientsListFragment.class;
                 break;
             case R.id.nav_recipes:
+                pd.launchProgressDialog(this);
                 fragmentClass = RecipeListFragment.class;
                 break;
             default:
@@ -87,6 +95,16 @@ public class HomeActivity extends AppCompatActivity {
 
         setTitle(item.getTitle());
         mDrawer.closeDrawers();
+    }
+
+    //interface for disabling progress dialog.
+    public void disableProgressDialog(){
+        if (pd != null) {
+            pd.disableProgressDialog();
+        }
+        else {
+            Log.d("disableProgressDialog", "showProgressDialog: pd was null when trying to dismiss progress");
+        }
     }
 
     @Override
@@ -110,11 +128,5 @@ public class HomeActivity extends AppCompatActivity {
 
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
-    //    public void recipeActivityHandler(View view)
-//    {
-//        Intent i = new Intent(this, RecipeLookupActivity.class);
-//        startActivity(i);
-//    }
 
 }

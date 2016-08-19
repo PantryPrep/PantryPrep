@@ -2,21 +2,20 @@ package com.sonnytron.sortatech.pantryprep.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.sonnytron.sortatech.pantryprep.Adapters.RecipeListAdapter;
+import com.bumptech.glide.Glide;
 import com.sonnytron.sortatech.pantryprep.Helpers.Network;
-import com.sonnytron.sortatech.pantryprep.Interfaces.RecipeQueryInterface;
+import com.sonnytron.sortatech.pantryprep.Interfaces.RecipeDetailInterface;
 import com.sonnytron.sortatech.pantryprep.Models.Query.Match;
-import com.sonnytron.sortatech.pantryprep.Models.Query.RecipeQuery;
 import com.sonnytron.sortatech.pantryprep.Models.Recipes.Image;
-import com.sonnytron.sortatech.pantryprep.Models.Recipes.RecipeDetail;
+import com.sonnytron.sortatech.pantryprep.Models.Recipes.RecipeDetails;
 import com.sonnytron.sortatech.pantryprep.R;
 
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -42,15 +42,13 @@ public class RecipeLookupActivity extends AppCompatActivity {
     @BindView(R.id.tvYield) TextView tvYield;
     @BindView(R.id.lvIngredientList) ListView lvIngredientList;
     @BindView(R.id.btnGoRecipe) Button btnGoRecipe;
-    @BindView(R.id.rvRecipes) RecyclerView rvRecipes;
-
-    //recycler view adapter pieces
-    private RecipeListAdapter recipeListAdapter;
-    private ArrayList<RecipeDetail> recipes;
+    @BindView(R.id.ivRecipeImage) ImageView ivRecipeImage;
 
     //ingredient list adapter pieces
     private ArrayAdapter<String> ingredientListAdapter;
     private ArrayList<String> ingredients;
+
+    private String recipeID;
 
     Network networkHelper;
 
@@ -60,41 +58,46 @@ public class RecipeLookupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_lookup);
         ButterKnife.bind(this);
 
+        //initialize helper
+        networkHelper = new Network();
+
+        //retrieve ID, maybe check if null.
+        recipeID = getIntent().getStringExtra("recipe_id");
+
         //lookup your current inventory from sqlLite
         //take your inventory and search top 3/top 5 ingredients
         //do a query on yummly (search)
         //with the response from yummly, do a query for possible recipes.
+
+        //retrieve recipe, now that ID is set.
+        if (recipeID != null) {
+            RetrieveRecipe();
+        } else {
+            //something went wrong, abort.
+            Toast.makeText(this, "No recipe ID found! ", Toast.LENGTH_LONG).show();
+            finish();
+        }
 
         //initialize ingredients list
         ingredients = new ArrayList<>();
         ingredientListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients);
         lvIngredientList.setAdapter(ingredientListAdapter);
 
-        //inintialize recipe view list
-        recipes = new ArrayList<>();
-        recipeListAdapter = new RecipeListAdapter(this, recipes);
-        rvRecipes.setAdapter(recipeListAdapter);
-
-
-        //need a horizontal layout manager.
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rvRecipes.setLayoutManager(layoutManager);
-
-        //initialize helper
-        networkHelper = new Network();
-        test();
-        RetrieveQuery();
-
+        //test();
     }
 
-    private void RetrieveQuery(){
+    //Retrofit functions
+    private void RetrieveRecipe(){
 
+        //do the query if we have internet.
         if (networkHelper.isOnline() && networkHelper.isNetworkAvailable(this))
         {
+            //http logging ----------------------------------------------
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             httpClient.addInterceptor(logging);
+            //end http logging -------------------------------------------
 
             Retrofit retrofitAdapter = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -102,26 +105,73 @@ public class RecipeLookupActivity extends AppCompatActivity {
                     .client(httpClient.build())  //this piece can be disabled?
                     .build();
 
-            RecipeQueryInterface apiService = retrofitAdapter.create(RecipeQueryInterface.class);
-            Call<RecipeQuery> call;
+            RecipeDetailInterface apiService = retrofitAdapter.create(RecipeDetailInterface.class);
+            Call<RecipeDetails> call = apiService.getResponse(recipeID, APP_ID, APP_KEY);
 
-            //fire off retrofit call
-            call = apiService.getResponse(APP_ID, APP_KEY, "potato cabbage onion");
-
-            call.enqueue(new Callback<RecipeQuery>() {
+            call.enqueue(new Callback<RecipeDetails>() {
                 @Override
-                public void onResponse(Call<RecipeQuery> call, retrofit2.Response<RecipeQuery> response) {
-                    //is the response good?
+                public void onResponse(Call<RecipeDetails> call, Response<RecipeDetails> response) {
                     //get the list of recipes. (matches)
-                    List<Match> recipeList = response.body().getMatches();
+                    RecipeDetails recipeDetail = new RecipeDetails();
+                    recipeDetail = response.body();
+
+                    if (response.code() == 200) {
+                        populateFields(recipeDetail);
+                    } else {
+                        Log.e("Retrofit onResponse: ", "Recipe API response failed");
+                    }
+
                     Log.d("Retrofit onResponse: ", "retrofit succeed");
                 }
 
                 @Override
-                public void onFailure(Call<RecipeQuery> call, Throwable t) {
-                    Log.d("Retrofit onFailure: ", "retrofit failed");
+                public void onFailure(Call<RecipeDetails> call, Throwable t) {
+                    //Log.d("Retrofit onFailure: ", call..toString());
+                    t.printStackTrace();
+                    Log.e("Retrofit Failure: ", t.toString(),t);
                 }
             });
+        }
+        else
+        {
+            Log.e("RetrieveQuery: ", "no internet!");
+        }
+
+    }
+
+    private void populateFields(RecipeDetails recipeDetails){
+        tvRecipeTitle.setText(recipeDetails.getName());
+        tvYield.setText("Serving Size: " + recipeDetails.getNumberOfServings());
+
+        //if we have an image, print it.
+        if (recipeDetails.getImages().size() > 0) {
+            String mediumUrl = recipeDetails.getImages().get(0).getHostedMediumUrl();
+            String largeUrl = recipeDetails.getImages().get(0).getHostedLargeUrl();
+
+            //populate adapter with list of ingredients.
+            ingredients.addAll(recipeDetails.getIngredientLines());
+            ingredientListAdapter.notifyDataSetChanged();
+
+
+            //prefer medium size, else use big.  don't use small.
+            if(mediumUrl != null) {
+                Glide.with(this)
+                        .load(mediumUrl)
+                        //.placeholder()
+                        .into(ivRecipeImage);
+            }
+            else if(largeUrl != null)
+            {
+                Glide.with(this)
+                        .load(largeUrl)
+                        //.placeholder()
+                        .into(ivRecipeImage);
+            }
+            //load placeholder
+            else
+            {
+                //load placeholder
+            }
         }
     }
 
@@ -131,13 +181,13 @@ public class RecipeLookupActivity extends AppCompatActivity {
         ingredients.add("ingredient 3");
         ingredients.add("ingredient 4");
         ingredients.add("ingredient 5");
-        ingredients.add("ingredient 6");
+        ingredients.add("test 6");
         ingredients.add("ingredient 7");
-        recipeListAdapter.notifyDataSetChanged();
+        ingredientListAdapter.notifyDataSetChanged();
 
-        List<RecipeDetail> testRecipeList = new ArrayList<>();
+        List<RecipeDetails> testRecipeList = new ArrayList<>();
 
-        RecipeDetail testRecipe = new RecipeDetail();
+        RecipeDetails testRecipe = new RecipeDetails();
 
         List<Image> image = new ArrayList<>();
         Image newImage = new Image();
@@ -145,13 +195,9 @@ public class RecipeLookupActivity extends AppCompatActivity {
         newImage.setHostedMediumUrl("https://lh3.googleusercontent.com/SmMH75Cus5LQdTgzWTTAyWU0YFSglzvjBrAK7PnybFZO9fCqmF7AgivpXRHDK-f3fT_cHf6oZwpweYKjsqOPKTo=s180");
         newImage.setHostedSmallUrl("https://lh3.googleusercontent.com/SmMH75Cus5LQdTgzWTTAyWU0YFSglzvjBrAK7PnybFZO9fCqmF7AgivpXRHDK-f3fT_cHf6oZwpweYKjsqOPKTo=s90");
         image.add(newImage);
-        testRecipe.setImages(image);
+        //testRecipe.setImages(image);
         testRecipe.setName("German Potato Soup");
 
         testRecipeList.add(testRecipe);
-
-
-        recipes.addAll(testRecipeList);
-        recipeListAdapter.notifyDataSetChanged();
     }
 }

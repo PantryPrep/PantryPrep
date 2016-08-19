@@ -1,7 +1,6 @@
 package com.sonnytron.sortatech.pantryprep.Interfaces;
 
 import com.sonnytron.sortatech.pantryprep.Models.Query.RecipeQuery;
-import com.sonnytron.sortatech.pantryprep.Models.Recipes.RecipeDetail;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

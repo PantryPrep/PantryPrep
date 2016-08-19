@@ -3,9 +3,6 @@ package com.sonnytron.sortatech.pantryprep.Models.Recipes;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.transform.Source;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.sonnytron.sortatech.pantryprep.Models.Common.Attributes;
@@ -13,7 +10,7 @@ import com.sonnytron.sortatech.pantryprep.Models.Common.Attribution;
 import com.sonnytron.sortatech.pantryprep.Models.Common.Flavors;
 
 
-public class RecipeDetail {
+public class RecipeDetails {
 
     @SerializedName("yield")
     @Expose
@@ -21,9 +18,6 @@ public class RecipeDetail {
     @SerializedName("nutritionEstimates")
     @Expose
     private List<NutritionEstimate> nutritionEstimates = new ArrayList<NutritionEstimate>();
-    @SerializedName("prepTimeInSeconds")
-    @Expose
-    private Integer prepTimeInSeconds;
     @SerializedName("totalTime")
     @Expose
     private String totalTime;
@@ -35,19 +29,13 @@ public class RecipeDetail {
     private String name;
     @SerializedName("source")
     @Expose
-    private Source source;
-    @SerializedName("prepTime")
-    @Expose
-    private String prepTime;
+    private HostSource hostSource;
     @SerializedName("id")
     @Expose
     private String id;
     @SerializedName("ingredientLines")
     @Expose
     private List<String> ingredientLines = new ArrayList<String>();
-    @SerializedName("cookTime")
-    @Expose
-    private String cookTime;
     @SerializedName("attribution")
     @Expose
     private Attribution attribution;
@@ -60,9 +48,6 @@ public class RecipeDetail {
     @SerializedName("attributes")
     @Expose
     private Attributes attributes;
-    @SerializedName("cookTimeInSeconds")
-    @Expose
-    private Integer cookTimeInSeconds;
     @SerializedName("flavors")
     @Expose
     private Flavors flavors;
@@ -73,7 +58,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The yield
+     * The yield
      */
     public String getYield() {
         return yield;
@@ -82,7 +67,7 @@ public class RecipeDetail {
     /**
      *
      * @param yield
-     *     The yield
+     * The yield
      */
     public void setYield(String yield) {
         this.yield = yield;
@@ -91,7 +76,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The nutritionEstimates
+     * The nutritionEstimates
      */
     public List<NutritionEstimate> getNutritionEstimates() {
         return nutritionEstimates;
@@ -100,7 +85,7 @@ public class RecipeDetail {
     /**
      *
      * @param nutritionEstimates
-     *     The nutritionEstimates
+     * The nutritionEstimates
      */
     public void setNutritionEstimates(List<NutritionEstimate> nutritionEstimates) {
         this.nutritionEstimates = nutritionEstimates;
@@ -109,25 +94,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The prepTimeInSeconds
-     */
-    public Integer getPrepTimeInSeconds() {
-        return prepTimeInSeconds;
-    }
-
-    /**
-     *
-     * @param prepTimeInSeconds
-     *     The prepTimeInSeconds
-     */
-    public void setPrepTimeInSeconds(Integer prepTimeInSeconds) {
-        this.prepTimeInSeconds = prepTimeInSeconds;
-    }
-
-    /**
-     *
-     * @return
-     *     The totalTime
+     * The totalTime
      */
     public String getTotalTime() {
         return totalTime;
@@ -136,7 +103,7 @@ public class RecipeDetail {
     /**
      *
      * @param totalTime
-     *     The totalTime
+     * The totalTime
      */
     public void setTotalTime(String totalTime) {
         this.totalTime = totalTime;
@@ -145,7 +112,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The images
+     * The images
      */
     public List<Image> getImages() {
         return images;
@@ -154,7 +121,7 @@ public class RecipeDetail {
     /**
      *
      * @param images
-     *     The images
+     * The images
      */
     public void setImages(List<Image> images) {
         this.images = images;
@@ -163,7 +130,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The name
+     * The name
      */
     public String getName() {
         return name;
@@ -172,7 +139,7 @@ public class RecipeDetail {
     /**
      *
      * @param name
-     *     The name
+     * The name
      */
     public void setName(String name) {
         this.name = name;
@@ -181,43 +148,20 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The source
+     * The source
      */
-    public Source getSource() {
-        return source;
+    public HostSource getSource() {
+        return hostSource;
     }
 
-    /**
-     *
-     * @param source
-     *     The source
-     */
-    public void setSource(Source source) {
-        this.source = source;
+    public void setSource(HostSource inSource) {
+        this.hostSource = inSource;
     }
 
     /**
      *
      * @return
-     *     The prepTime
-     */
-    public String getPrepTime() {
-        return prepTime;
-    }
-
-    /**
-     *
-     * @param prepTime
-     *     The prepTime
-     */
-    public void setPrepTime(String prepTime) {
-        this.prepTime = prepTime;
-    }
-
-    /**
-     *
-     * @return
-     *     The id
+     * The id
      */
     public String getId() {
         return id;
@@ -226,7 +170,7 @@ public class RecipeDetail {
     /**
      *
      * @param id
-     *     The id
+     * The id
      */
     public void setId(String id) {
         this.id = id;
@@ -235,7 +179,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The ingredientLines
+     * The ingredientLines
      */
     public List<String> getIngredientLines() {
         return ingredientLines;
@@ -244,7 +188,7 @@ public class RecipeDetail {
     /**
      *
      * @param ingredientLines
-     *     The ingredientLines
+     * The ingredientLines
      */
     public void setIngredientLines(List<String> ingredientLines) {
         this.ingredientLines = ingredientLines;
@@ -253,25 +197,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The cookTime
-     */
-    public String getCookTime() {
-        return cookTime;
-    }
-
-    /**
-     *
-     * @param cookTime
-     *     The cookTime
-     */
-    public void setCookTime(String cookTime) {
-        this.cookTime = cookTime;
-    }
-
-    /**
-     *
-     * @return
-     *     The attribution
+     * The attribution
      */
     public Attribution getAttribution() {
         return attribution;
@@ -280,7 +206,7 @@ public class RecipeDetail {
     /**
      *
      * @param attribution
-     *     The attribution
+     * The attribution
      */
     public void setAttribution(Attribution attribution) {
         this.attribution = attribution;
@@ -289,7 +215,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The numberOfServings
+     * The numberOfServings
      */
     public Integer getNumberOfServings() {
         return numberOfServings;
@@ -298,7 +224,7 @@ public class RecipeDetail {
     /**
      *
      * @param numberOfServings
-     *     The numberOfServings
+     * The numberOfServings
      */
     public void setNumberOfServings(Integer numberOfServings) {
         this.numberOfServings = numberOfServings;
@@ -307,7 +233,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The totalTimeInSeconds
+     * The totalTimeInSeconds
      */
     public Integer getTotalTimeInSeconds() {
         return totalTimeInSeconds;
@@ -316,7 +242,7 @@ public class RecipeDetail {
     /**
      *
      * @param totalTimeInSeconds
-     *     The totalTimeInSeconds
+     * The totalTimeInSeconds
      */
     public void setTotalTimeInSeconds(Integer totalTimeInSeconds) {
         this.totalTimeInSeconds = totalTimeInSeconds;
@@ -325,7 +251,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The attributes
+     * The attributes
      */
     public Attributes getAttributes() {
         return attributes;
@@ -334,7 +260,7 @@ public class RecipeDetail {
     /**
      *
      * @param attributes
-     *     The attributes
+     * The attributes
      */
     public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
@@ -343,25 +269,7 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The cookTimeInSeconds
-     */
-    public Integer getCookTimeInSeconds() {
-        return cookTimeInSeconds;
-    }
-
-    /**
-     *
-     * @param cookTimeInSeconds
-     *     The cookTimeInSeconds
-     */
-    public void setCookTimeInSeconds(Integer cookTimeInSeconds) {
-        this.cookTimeInSeconds = cookTimeInSeconds;
-    }
-
-    /**
-     *
-     * @return
-     *     The flavors
+     * The flavors
      */
     public Flavors getFlavors() {
         return flavors;
@@ -370,7 +278,7 @@ public class RecipeDetail {
     /**
      *
      * @param flavors
-     *     The flavors
+     * The flavors
      */
     public void setFlavors(Flavors flavors) {
         this.flavors = flavors;
@@ -379,19 +287,23 @@ public class RecipeDetail {
     /**
      *
      * @return
-     *     The rating
+     * The rating
      */
+
     public Integer getRating() {
         return rating;
     }
 
+
     /**
      *
      * @param rating
-     *     The rating
+     * The rating
      */
+
     public void setRating(Integer rating) {
         this.rating = rating;
     }
+
 
 }
