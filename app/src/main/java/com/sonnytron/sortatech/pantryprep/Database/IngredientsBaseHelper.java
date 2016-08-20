@@ -21,7 +21,9 @@ public class IngredientsBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table " + IngredientsTable.NAME + "(" +
         IngredientsTable.Cols.UUID + ", " +
-        IngredientsTable.Cols.TITLE + ")");
+        IngredientsTable.Cols.TYPE + ", " +
+        IngredientsTable.Cols.PHOTO + ", " +
+        IngredientsTable.Cols.EXP + ")");
     }
 
     @Override

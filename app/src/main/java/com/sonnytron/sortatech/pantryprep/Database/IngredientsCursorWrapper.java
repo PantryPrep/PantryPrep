@@ -19,6 +19,9 @@ public class IngredientsCursorWrapper extends CursorWrapper {
     public Ingredient getIngredient() {
         String uuidString = getString(getColumnIndex(IngredientsTable.Cols.UUID));
         String title = getString(getColumnIndex(IngredientsTable.Cols.TITLE));
+        String photo = getString(getColumnIndex(IngredientsTable.Cols.PHOTO));
+        String type = getString(getColumnIndex(IngredientsTable.Cols.TYPE));
+        long exp = getLong(getColumnIndex(IngredientsTable.Cols.EXP));
 
         Ingredient ingredient = new Ingredient(UUID.fromString(uuidString));
         ingredient.setTitle(title);

@@ -74,6 +74,9 @@ public class IngredientManager {
         ContentValues values = new ContentValues();
         values.put(IngredientsTable.Cols.UUID, ingredient.getId().toString());
         values.put(IngredientsTable.Cols.TITLE, ingredient.getTitle());
+        values.put(IngredientsTable.Cols.TYPE, ingredient.getType());
+        values.put(IngredientsTable.Cols.PHOTO, ingredient.getStockPhoto());
+        values.put(IngredientsTable.Cols.EXP, ingredient.getExpLong());
         return values;
     }
 

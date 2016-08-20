@@ -4,4 +4,13 @@
     <string name="nav_recipes_title">Recipes</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="ingredient_hint">Spinach, red potatoes...</string>
+    <string name="protein">Protein</string>
+    <string name="veggies">Veggies</string>
+    <string name="fruit">Fruit</string>
+    <string name="spices">Spices</string>
+    <string name="dairy">Dairy</string>
+    <string name="ingredientGroupTitle">Type of ingredient: </string>
+    <string name="expDateTitle">Expiration date: </string>
+    <string name="saveIngredientTitle">Save</string>
 </resources>

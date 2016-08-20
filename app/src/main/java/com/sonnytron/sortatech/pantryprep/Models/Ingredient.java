@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +16,12 @@ public class Ingredient implements Parcelable {
     private UUID mId;
     private String stockPhoto;
     private String type;
+    private long expLong;
+    private Date expDate;
+
+    public Ingredient() {
+        mId = UUID.randomUUID();
+    }
 
     public Ingredient(UUID id) {
         mId = id;
@@ -62,6 +69,20 @@ public class Ingredient implements Parcelable {
         this.type = type;
     }
 
+    public long getExpLong() {
+        if (expDate != null) {
+            expLong = expDate.getTime();
+        }
+        return expLong;
+    }
+
+    public Date getExpDate() {
+        return expDate;
+    }
+
+    public void setExpDate(Date expDate) {
+        this.expDate = expDate;
+    }
 
     @Override
     public int describeContents() {

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/add_ingredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/etIngredientAddTitle"
+        android:layout_margin="12dp"
+        android:hint="@string/ingredient_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/typeRadioTitle"
+        android:layout_margin="12dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:text="@string/ingredientGroupTitle"
+        android:layout_below="@+id/etIngredientAddTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroupType"
+        android:layout_marginLeft="64dp"
+        android:layout_below="@+id/typeRadioTitle"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radioProtein"
+            android:text="@string/protein"
+            android:onClick="onTypeRadioClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <RadioButton
+            android:id="@+id/radioVeggies"
+            android:text="@string/veggies"
+            android:onClick="onTypeRadioClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <RadioButton
+            android:id="@+id/radioDairy"
+            android:text="@string/dairy"
+            android:onClick="onTypeRadioClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <RadioButton
+            android:id="@+id/radioFruit"
+            android:text="@string/fruit"
+            android:onClick="onTypeRadioClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <RadioButton
+            android:id="@+id/radioSpices"
+            android:text="@string/spices"
+            android:onClick="onTypeRadioClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvExpirationDate"
+        android:text="@string/expDateTitle"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_margin="12dp"
+        android:layout_below="@id/radioGroupType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btSaveIngredient"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="64dp"
+        android:layout_below="@+id/tvExpirationDate"
+        android:layout_centerHorizontal="true"
+        android:text="@string/saveIngredientTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
