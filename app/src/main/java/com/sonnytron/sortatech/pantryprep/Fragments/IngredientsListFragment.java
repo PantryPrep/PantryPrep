@@ -37,7 +37,7 @@ public class IngredientsListFragment extends Fragment implements IngredientDialo
                 showAddIngredient();
             }
         });
-        
+
         return view;
     }
 
