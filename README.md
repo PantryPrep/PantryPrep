@@ -20,8 +20,8 @@ The following are core story functionality:
 * [ ] Push notification for ingredients nearing expiration
 * [ ] Expired food items are added to a "Wasted Food" list in a separate screen that tallies up your cost.  
 * [x] Connect to Yummly’s API to retrieve recipes 
-  *[ ] Recipes based on the ingredients that are going to expire soon are listed first
-  *[x] Select Recipe Suggestions based on your ingredients 
+  * [ ] Recipes based on the ingredients that are going to expire soon are listed first
+  * [x] Select Recipe Suggestions based on your ingredients 
 
 
 
