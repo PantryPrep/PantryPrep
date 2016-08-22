@@ -29,6 +29,11 @@ public class IngredientManager {
         return sIngredientManager;
     }
 
+    public void addIngredient(Ingredient ingredient) {
+        ContentValues values = getContentValues(ingredient);
+        mDatabase.insert(IngredientsTable.NAME, null, values);
+    }
+
     public List<Ingredient> getIngredients() {
         List<Ingredient> ingredients = new ArrayList<>();
         IngredientsCursorWrapper cursor = queryIngredients(null, null);
