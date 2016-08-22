@@ -19,6 +19,10 @@ The following are core story functionality:
 * [ ] Expiration dates of pantry ingredients
 * [ ] Push notification for ingredients nearing expiration
 * [ ] Expired food items are added to a "Wasted Food" list in a separate screen that tallies up your cost.  
+* [x] Connect to Yummly’s API to retrieve recipes 
+  *[ ] Recipes based on the ingredients that are going to expire soon are listed first
+  *[x] Select Recipe Suggestions based on your ingredients 
+
 
 
 The following are optional features: 
@@ -27,11 +31,9 @@ The following are optional features:
 * [ ] User can tap “Wasted Food” and see list of expired ingredients
 * [ ] Nutrition breakdown (calories, fat, vitamins, sodium)
 * [ ] As user is typing ingredient name auto complete
-* [ ] Connect to Yummly’s API to retrieve recipes 
-  * Recipes based on the ingredients that are going to expire soon are listed first
-  * Suggestions (+1, +2 ingredients that you don’t currently have) listed after
 * [ ] social media aspects: add photo functionality to share with facebook/twitter/
-
+* [ ] Select recipe based on only ingredients you have
+* [ ] Select recipes with 1, 2, 3, etc missing ingredients in order. 
 
 
 
