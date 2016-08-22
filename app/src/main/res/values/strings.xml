@@ -13,4 +13,6 @@
     <string name="ingredientGroupTitle">Type of ingredient: </string>
     <string name="expDateTitle">Expiration date: </string>
     <string name="saveIngredientTitle">Save</string>
+    <string name="ingredientListTitle">Ingredient Name</string>
+    <string name="ingredientListType">Ingredient Type</string>
 </resources>
