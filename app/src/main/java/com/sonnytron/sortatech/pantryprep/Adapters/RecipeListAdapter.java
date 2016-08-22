@@ -44,6 +44,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
             if (listener != null) {
                 viewHolderClickListener = listener;
+                //note: change this to respond to click on the row. Might use the recycler view on click listener from codepath.
                 ivRecipeImage.setOnClickListener(this);
             }
         }

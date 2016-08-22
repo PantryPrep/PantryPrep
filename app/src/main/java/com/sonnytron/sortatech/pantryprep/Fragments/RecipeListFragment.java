@@ -134,7 +134,7 @@ public class RecipeListFragment extends Fragment {
     //initializes the recycler view with the recipes.
     private void initrvRecipes()
     {
-        //inintialize recipe view list
+        //initialize recipe view list
         recipes = new ArrayList<>();
         recipeListAdapter = new RecipeListAdapter(getActivity(), recipes);
         rvRecipes.setAdapter(recipeListAdapter);
