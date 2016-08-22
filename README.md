@@ -22,6 +22,7 @@ The following are core story functionality:
 * [x] Connect to Yummly’s API to retrieve recipes 
   * [ ] Recipes based on the ingredients that are going to expire soon are listed first
   * [x] Select Recipe Suggestions based on your ingredients 
+  * [x] View recipe source in a WebView inside the client. 
 
 
 
