@@ -13,6 +13,7 @@ The following are core story functionality:
 	* Type of ingredient (from predetermined list)
 	* Expiration date override (otherwise use existing expiration dates)
 	* Custom camera picture, otherwise will use default placeholder. 
+
 * [x] SQL Lite server will store data locally.  
 * [ ] Inventory of pantry ingredients in a grid view 
 * [x] Drawer on left hand side to select ingredients or recipes. 
