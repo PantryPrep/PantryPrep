@@ -12,12 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.sonnytron.sortatech.pantryprep.Fragments.IngredientDialogFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientsListFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.RecipeListFragment;
 import com.sonnytron.sortatech.pantryprep.Helpers.ProgressDialogHelper;
+import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
+import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientCallback {
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
     private NavigationView nvDrawer;
@@ -127,4 +130,8 @@ public class HomeActivity extends AppCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void saveIngredient(Ingredient ingredient) {
+        IngredientManager.get(this).addIngredient(ingredient);
+    }
 }

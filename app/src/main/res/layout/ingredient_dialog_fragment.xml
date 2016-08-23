@@ -7,6 +7,10 @@
         android:id="@+id/etIngredientAddTitle"
         android:layout_margin="12dp"
         android:hint="@string/ingredient_hint"
+        android:lines="1"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:inputType="textAutoCorrect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -30,31 +34,26 @@
         <RadioButton
             android:id="@+id/radioProtein"
             android:text="@string/protein"
-            android:onClick="onTypeRadioClicked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RadioButton
             android:id="@+id/radioVeggies"
             android:text="@string/veggies"
-            android:onClick="onTypeRadioClicked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RadioButton
             android:id="@+id/radioDairy"
             android:text="@string/dairy"
-            android:onClick="onTypeRadioClicked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RadioButton
             android:id="@+id/radioFruit"
             android:text="@string/fruit"
-            android:onClick="onTypeRadioClicked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RadioButton
             android:id="@+id/radioSpices"
             android:text="@string/spices"
-            android:onClick="onTypeRadioClicked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </RadioGroup>

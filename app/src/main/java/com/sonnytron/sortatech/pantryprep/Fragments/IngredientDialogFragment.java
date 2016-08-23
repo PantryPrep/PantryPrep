@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
@@ -28,13 +31,14 @@ public class IngredientDialogFragment extends DialogFragment {
     private Button btSave;
     private Ingredient mIngredient;
     private IngredientCallback mCallback;
+    private RadioGroup mGroup;
+
+    public interface IngredientCallback {
+        public void saveIngredient(Ingredient ingredient);
+    }
 
     public IngredientDialogFragment() {
 
-    }
-
-    public interface IngredientCallback {
-        void saveIngredient(Ingredient ingredient);
     }
 
     public static IngredientDialogFragment newInstance(String title) {
@@ -56,10 +60,42 @@ public class IngredientDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mIngredient = new Ingredient();
-
+        Date mDate = new Date();
+        mDate.setTime(SystemClock.currentThreadTimeMillis());
+        mIngredient.setExpDate(mDate);
         etIngredientTitle = (EditText) view.findViewById(R.id.etIngredientAddTitle);
 
         btSave = (Button) view.findViewById(R.id.btSaveIngredient);
+
+        mGroup = (RadioGroup) view.findViewById(R.id.radioGroupType);
+        mGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                View radioButton = radioGroup.findViewById(i);
+                int index = radioGroup.indexOfChild(radioButton);
+                switch (index) {
+                    case 0:
+                        mIngredient.setType("protein");
+                        break;
+                    case 1:
+                        mIngredient.setType("veggies");
+                        break;
+                    case 2:
+                        mIngredient.setType("dairy");
+                        break;
+                    case 3:
+                        mIngredient.setType("fruit");
+                        break;
+                    case 4:
+                        mIngredient.setType("spices");
+                        break;
+                    default:
+                        mIngredient.setType("veggies");
+                        break;
+                }
+                mIngredient.dateFromType();
+            }
+        });
 
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,56 +112,24 @@ public class IngredientDialogFragment extends DialogFragment {
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mCallback = (IngredientCallback) context;
-    }
-
-    public void onTypeRadioClicked(View view) {
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.radioProtein:
-                if (checked) {
-                    mIngredient.setType("protein");
-                }
-                break;
-            case R.id.radioVeggies:
-                if (checked) {
-                    mIngredient.setType("veggies");
-                }
-                break;
-            case R.id.radioFruit:
-                if (checked) {
-                    mIngredient.setType("fruit");
-                }
-                break;
-            case R.id.radioSpices:
-                if (checked) {
-                    mIngredient.setType("spices");
-                }
-                break;
-            case R.id.radioDairy:
-                if (checked) {
-                    mIngredient.setType("dairy");
-                }
-                break;
-            default:
-
-        }
-    }
-
     private void saveIngredient() {
-        Date mDate = new Date();
-        mDate.setTime(SystemClock.currentThreadTimeMillis());
-        mIngredient.setExpDate(mDate);
+
+        String title = etIngredientTitle.getText().toString();
+        if (title != null && title.length() > 0) {
+            mIngredient.setTitle(title);
+        }
         if (ingredientValidated()) {
             mCallback.saveIngredient(mIngredient);
             getDialog().dismiss();
         } else {
             Toast.makeText(getActivity(), "Please fill all required fields!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallback = (IngredientCallback) context;
     }
 
     private boolean ingredientValidated() {

@@ -6,6 +6,7 @@ import android.database.CursorWrapper;
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.Database.IngredientSchema.IngredientsTable;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -25,6 +26,9 @@ public class IngredientsCursorWrapper extends CursorWrapper {
 
         Ingredient ingredient = new Ingredient(UUID.fromString(uuidString));
         ingredient.setTitle(title);
+        ingredient.setStockPhoto(photo);
+        ingredient.setDateLong(exp);
+        ingredient.setType(type);
         return ingredient;
     }
 }
