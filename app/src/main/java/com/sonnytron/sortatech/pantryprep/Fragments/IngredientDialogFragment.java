@@ -91,6 +91,8 @@ public class IngredientDialogFragment extends DialogFragment {
                         mIngredient.setType("veggies");
                         break;
                 }
+                Toast.makeText(getActivity(), "Type: " + mIngredient.getType() + " Index: " + index + " Value i: " + i, Toast.LENGTH_SHORT).show();
+
             }
         });
 

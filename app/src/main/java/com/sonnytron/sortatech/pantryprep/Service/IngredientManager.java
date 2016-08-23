@@ -10,6 +10,7 @@ import com.sonnytron.sortatech.pantryprep.Database.IngredientsCursorWrapper;
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.Database.IngredientSchema.IngredientsTable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,16 @@ public class IngredientManager {
     private static IngredientManager sIngredientManager;
     private Context mContext;
     private SQLiteDatabase mDatabase;
+    private ArrayList<String> ingredientsFromYummly;
+    private ArrayList<String> ingredientsLocal;
+
+    public void whichDoWeHave() {
+        for (String string: ingredientsFromYummly) {
+            if (ingredientsLocal.indexOf(string) != -1) {
+                // you have this ingredient
+            }
+        }
+    }
 
     public static IngredientManager get(Context context) {
         if (sIngredientManager == null) {

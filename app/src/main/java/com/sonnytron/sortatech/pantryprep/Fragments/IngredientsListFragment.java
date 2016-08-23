@@ -9,9 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.sonnytron.sortatech.pantryprep.Adapters.IngredientListAdapter;
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
+import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.List;
 public class IngredientsListFragment extends Fragment implements IngredientDialogFragment.IngredientCallback {
     private RecyclerView rvIngredients;
     private FloatingActionButton btAddIngredient;
+    private IngredientListAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +42,15 @@ public class IngredientsListFragment extends Fragment implements IngredientDialo
             }
         });
 
+        updateUI();
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
     }
 
     @Override
@@ -50,5 +62,19 @@ public class IngredientsListFragment extends Fragment implements IngredientDialo
         FragmentManager fm = getFragmentManager();
         IngredientDialogFragment dialogFragment = IngredientDialogFragment.newInstance("New Ingredient");
         dialogFragment.show(fm, "ingredient_dialog_fragment");
+    }
+
+    public void updateUI() {
+        IngredientManager ingredientManager = IngredientManager.get(getActivity());
+        List<Ingredient> ingredients = ingredientManager.getIngredients();
+
+        if (mAdapter == null) {
+            mAdapter = new IngredientListAdapter(getActivity(), ingredients);
+            rvIngredients.setAdapter(mAdapter);
+        } else {
+            mAdapter.setIngredients(ingredients);
+            mAdapter.notifyDataSetChanged();
+        }
+
     }
 }

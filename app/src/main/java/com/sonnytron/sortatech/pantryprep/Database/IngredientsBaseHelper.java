@@ -11,7 +11,7 @@ import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
  */
 public class IngredientsBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
-    private static final String DATABASE_NAME = "ingredientsItemsBeta.db";
+    private static final String DATABASE_NAME = "ingredientsItemsBeta1.db";
 
     public IngredientsBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -20,6 +20,7 @@ public class IngredientsBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table " + IngredientsTable.NAME + "(" +
+        IngredientsTable.Cols.TITLE + ", " +
         IngredientsTable.Cols.UUID + ", " +
         IngredientsTable.Cols.TYPE + ", " +
         IngredientsTable.Cols.PHOTO + ", " +

@@ -40,6 +40,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
         public void bindIngredient(Ingredient ingredient) {
             mIngredient = ingredient;
+            updateLayout();
         }
 
         private void updateLayout() {
@@ -63,8 +64,6 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         mIngredients = ingredients;
     }
 
-
-
     @Override
     public IngredientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mInflater = LayoutInflater.from(getContext());
@@ -85,10 +84,14 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mIngredients.size();
     }
 
     private Context getContext() {
         return mContext;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        mIngredients = ingredients;
     }
 }
