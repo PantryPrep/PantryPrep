@@ -70,7 +70,7 @@ public class IngredientDialogFragment extends DialogFragment {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 View radioButton = radioGroup.findViewById(i);
-                int index = radioGroup.indexOfChild(radioGroup);
+                int index = radioGroup.indexOfChild(radioButton);
                 switch (index) {
                     case 0:
                         mIngredient.setType("protein");
@@ -91,8 +91,6 @@ public class IngredientDialogFragment extends DialogFragment {
                         mIngredient.setType("veggies");
                         break;
                 }
-                Toast.makeText(getActivity(), "Type: " + mIngredient.getType() + " Index: " + index + " Value i: " + i, Toast.LENGTH_SHORT).show();
-
             }
         });
 

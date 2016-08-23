@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
@@ -46,6 +47,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         private void updateLayout() {
             tvIngredientTitle.setText(mIngredient.getTitle());
             tvIngredientType.setText(mIngredient.getType());
+
         }
 
         @Override

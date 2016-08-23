@@ -80,6 +80,12 @@ public class Ingredient implements Parcelable {
         return expDate;
     }
 
+    public void setDateLong(long dateLong) {
+        Date date = new Date();
+        date.setTime(dateLong);
+        expDate = date;
+    }
+
     public void setExpDate(Date expDate) {
         this.expDate = expDate;
     }
