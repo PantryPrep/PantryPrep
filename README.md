@@ -24,7 +24,7 @@ The following are core story functionality:
   * [ ] Recipes based on the ingredients that are going to expire soon are listed first
   * [x] Select Recipe Suggestions based on your ingredients 
   * [x] View recipe source in a WebView inside the client. 
-
+* [ ] Dialog Alert for Adding Ingredient
 
 
 The following are optional features: 
