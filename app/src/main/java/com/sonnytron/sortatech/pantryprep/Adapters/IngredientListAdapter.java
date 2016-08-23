@@ -2,6 +2,7 @@ package com.sonnytron.sortatech.pantryprep.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder>{
     private Context mContext;
+    private LayoutInflater mInflater;
     private List<Ingredient> mIngredients;
 
     public static class IngredientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -61,14 +63,24 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         mIngredients = ingredients;
     }
 
+
+
     @Override
     public IngredientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        mInflater = LayoutInflater.from(getContext());
+        View view = mInflater.inflate(R.layout.ingredient_list_item, parent, false);
+        return new IngredientViewHolder(view, new IngredientViewHolder.OnViewHolderListener() {
+            @Override
+            public void onIngredientClick(View caller, int position) {
+
+            }
+        });
     }
 
     @Override
     public void onBindViewHolder(IngredientViewHolder holder, int position) {
-
+        Ingredient ingredient = mIngredients.get(position);
+        holder.bindIngredient(ingredient);
     }
 
     @Override
