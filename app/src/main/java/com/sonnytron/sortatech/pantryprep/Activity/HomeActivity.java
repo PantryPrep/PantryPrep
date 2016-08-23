@@ -17,6 +17,7 @@ import com.sonnytron.sortatech.pantryprep.Fragments.IngredientsListFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.RecipeListFragment;
 import com.sonnytron.sortatech.pantryprep.Helpers.ProgressDialogHelper;
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
+import com.sonnytron.sortatech.pantryprep.PushNotifications.PushNotificationHelper;
 import com.sonnytron.sortatech.pantryprep.R;
 import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 
@@ -26,6 +27,7 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private ProgressDialogHelper pd;
+    private PushNotificationHelper pushNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,10 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
 
         //load progress dialog to show loading screens.
         pd = new ProgressDialogHelper();
+
+        pushNote = new PushNotificationHelper();
+        //test notification push
+
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -78,6 +84,7 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
             case R.id.nav_recipes:
                 pd.launchProgressDialog(this);
                 fragmentClass = RecipeListFragment.class;
+                pushNote.popNotification(this, "test");
                 break;
             default:
                 fragmentClass = IngredientsListFragment.class;
