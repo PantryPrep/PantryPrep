@@ -1,9 +1,11 @@
 package com.sonnytron.sortatech.pantryprep.Models;
 
+import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -11,7 +13,7 @@ import java.util.UUID;
 /**
  * Created by sonnyrodriguez on 8/18/16.
  */
-public class Ingredient implements Parcelable {
+public class Ingredient implements Parcelable, Comparable<Ingredient> {
     private String title;
     private UUID mId;
     private String stockPhoto;
@@ -86,6 +88,25 @@ public class Ingredient implements Parcelable {
         expDate = date;
     }
 
+    public void dateFromType() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(getExpDate());
+        int daysToAdd = 0;
+        if (getType() == "protein") {
+            daysToAdd += 5;
+        } else if (getType() == "dairy") {
+            daysToAdd += 8;
+        } else if (getType() == "veggies") {
+            daysToAdd += 6;
+        } else if (getType() == "fruit") {
+            daysToAdd += 10;
+        } else if (getType() == "spices") {
+            daysToAdd += 365;
+        }
+        cal.add(Calendar.DATE, daysToAdd);
+        expDate = cal.getTime();
+    }
+
     public void setExpDate(Date expDate) {
         this.expDate = expDate;
     }
@@ -121,4 +142,9 @@ public class Ingredient implements Parcelable {
             return new Ingredient[size];
         }
     };
+
+    @Override
+    public int compareTo(Ingredient ingredient) {
+        return getExpDate().compareTo(ingredient.getExpDate());
+    }
 }

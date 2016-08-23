@@ -60,7 +60,9 @@ public class IngredientDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mIngredient = new Ingredient();
-
+        Date mDate = new Date();
+        mDate.setTime(SystemClock.currentThreadTimeMillis());
+        mIngredient.setExpDate(mDate);
         etIngredientTitle = (EditText) view.findViewById(R.id.etIngredientAddTitle);
 
         btSave = (Button) view.findViewById(R.id.btSaveIngredient);
@@ -91,6 +93,7 @@ public class IngredientDialogFragment extends DialogFragment {
                         mIngredient.setType("veggies");
                         break;
                 }
+                mIngredient.dateFromType();
             }
         });
 
@@ -110,9 +113,7 @@ public class IngredientDialogFragment extends DialogFragment {
     }
 
     private void saveIngredient() {
-        Date mDate = new Date();
-        mDate.setTime(SystemClock.currentThreadTimeMillis());
-        mIngredient.setExpDate(mDate);
+
         String title = etIngredientTitle.getText().toString();
         if (title != null && title.length() > 0) {
             mIngredient.setTitle(title);

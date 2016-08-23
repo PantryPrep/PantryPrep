@@ -1,6 +1,7 @@
 package com.sonnytron.sortatech.pantryprep.Adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,17 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         private void updateLayout() {
             tvIngredientTitle.setText(mIngredient.getTitle());
             tvIngredientType.setText(mIngredient.getType());
-
+            if (mIngredient.getType() == "protein") {
+                ivIngredientPhoto.setImageResource(R.drawable.ic_protein);
+            } else if (mIngredient.getType() == "dairy") {
+                ivIngredientPhoto.setImageResource(R.drawable.ic_dairy);
+            } else if (mIngredient.getType() == "fruit") {
+                ivIngredientPhoto.setImageResource(R.drawable.ic_fruit);
+            } else if (mIngredient.getType() == "veggies") {
+                ivIngredientPhoto.setImageResource(R.drawable.ic_veggies);
+            } else {
+                ivIngredientPhoto.setImageResource(R.drawable.ic_spices);
+            }
         }
 
         @Override

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by sonnyrodriguez on 8/17/16.
  */
-public class IngredientsListFragment extends Fragment implements IngredientDialogFragment.IngredientCallback {
+public class IngredientsListFragment extends Fragment {
     private RecyclerView rvIngredients;
     private FloatingActionButton btAddIngredient;
     private IngredientListAdapter mAdapter;
@@ -51,11 +51,6 @@ public class IngredientsListFragment extends Fragment implements IngredientDialo
     public void onResume() {
         super.onResume();
         updateUI();
-    }
-
-    @Override
-    public void saveIngredient(Ingredient ingredient) {
-
     }
 
     public void showAddIngredient() {

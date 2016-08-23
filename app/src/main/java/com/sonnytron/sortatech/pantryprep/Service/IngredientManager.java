@@ -12,6 +12,7 @@ import com.sonnytron.sortatech.pantryprep.Database.IngredientSchema.IngredientsT
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -57,6 +58,7 @@ public class IngredientManager {
         } finally {
             cursor.close();
         }
+        Collections.sort(ingredients);
         return ingredients;
     }
 

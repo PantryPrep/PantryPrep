@@ -26,9 +26,9 @@ public class IngredientsCursorWrapper extends CursorWrapper {
 
         Ingredient ingredient = new Ingredient(UUID.fromString(uuidString));
         ingredient.setTitle(title);
-        ingredient.setType(type);
         ingredient.setStockPhoto(photo);
         ingredient.setDateLong(exp);
+        ingredient.setType(type);
         return ingredient;
     }
 }
