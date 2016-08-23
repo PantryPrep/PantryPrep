@@ -32,14 +32,20 @@ public class HomeActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
+        //setup drawer listener
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = setupDrawerToggle();
+        mDrawer.addDrawerListener(mDrawerToggle);
 
+        //find and setup drawer
         nvDrawer = (NavigationView) findViewById(R.id.nav_view);
-
         setupDrawerContent(nvDrawer);
 
-        mDrawer.addDrawerListener(mDrawerToggle);
+        //load fragment on initial load.
+        nvDrawer.getMenu().getItem(0).setChecked(true);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frame_content, new IngredientsListFragment()).commit();
+        setTitle(R.string.nav_ingredients_title);
 
         //load progress dialog to show loading screens.
         pd = new ProgressDialogHelper();
