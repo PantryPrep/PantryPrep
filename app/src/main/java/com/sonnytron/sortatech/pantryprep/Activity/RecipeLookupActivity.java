@@ -1,8 +1,10 @@
 package com.sonnytron.sortatech.pantryprep.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,7 +15,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.sonnytron.sortatech.pantryprep.Helpers.Network;
 import com.sonnytron.sortatech.pantryprep.Interfaces.RecipeDetailInterface;
-import com.sonnytron.sortatech.pantryprep.Models.Query.Match;
 import com.sonnytron.sortatech.pantryprep.Models.Recipes.Image;
 import com.sonnytron.sortatech.pantryprep.Models.Recipes.RecipeDetails;
 import com.sonnytron.sortatech.pantryprep.R;
@@ -49,6 +50,7 @@ public class RecipeLookupActivity extends AppCompatActivity {
     private ArrayList<String> ingredients;
 
     private String recipeID;
+    private String recipeURL;
 
     Network networkHelper;
 
@@ -84,14 +86,14 @@ public class RecipeLookupActivity extends AppCompatActivity {
         lvIngredientList.setAdapter(ingredientListAdapter);
 
         //test();
+        initRecipeButton();
     }
 
     //Retrofit functions
     private void RetrieveRecipe(){
 
         //do the query if we have internet.
-        if (networkHelper.isOnline() && networkHelper.isNetworkAvailable(this))
-        {
+        if (networkHelper.isOnline() && networkHelper.isNetworkAvailable(this)) {
             //http logging ----------------------------------------------
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -112,10 +114,10 @@ public class RecipeLookupActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<RecipeDetails> call, Response<RecipeDetails> response) {
                     //get the list of recipes. (matches)
-                    RecipeDetails recipeDetail = new RecipeDetails();
-                    recipeDetail = response.body();
+                    RecipeDetails recipeDetail;
 
                     if (response.code() == 200) {
+                        recipeDetail = response.body();
                         populateFields(recipeDetail);
                     } else {
                         Log.e("Retrofit onResponse: ", "Recipe API response failed");
@@ -128,16 +130,16 @@ public class RecipeLookupActivity extends AppCompatActivity {
                 public void onFailure(Call<RecipeDetails> call, Throwable t) {
                     //Log.d("Retrofit onFailure: ", call..toString());
                     t.printStackTrace();
-                    Log.e("Retrofit Failure: ", t.toString(),t);
+                    Log.e("Retrofit Failure: ", t.toString(), t);
                 }
             });
-        }
-        else
-        {
+        } else {
             Log.e("RetrieveQuery: ", "no internet!");
         }
-
     }
+
+
+    //Helper functions
 
     private void populateFields(RecipeDetails recipeDetails){
         tvRecipeTitle.setText(recipeDetails.getName());
@@ -167,12 +169,27 @@ public class RecipeLookupActivity extends AppCompatActivity {
                         //.placeholder()
                         .into(ivRecipeImage);
             }
-            //load placeholder
             else
             {
                 //load placeholder
             }
+
+            //get the recipe location
+            recipeURL = recipeDetails.getSource().getSourceRecipeUrl();
         }
+    }
+
+    private void initRecipeButton()
+    {
+        btnGoRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ViewRecipeActivity.class);
+                i.putExtra("recipe_url", recipeURL);
+                startActivity(i);
+                //Log.d("recipe_url", recipeURL);
+            }
+        });
     }
 
     private void test(){
