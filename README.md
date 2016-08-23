@@ -6,19 +6,19 @@ The PantryPrep application is an Android application built in Java that helps yo
 
 The following are core story functionality:
 
-* [ ] Profile creation/login (username only) to Parse Server, data stored server side.
-  * [ ] Upon profile creation, user will be asked to create their “pantry”, an inventory of what they currently have.  This includes: 
+ * [ ] User will need to create their “pantry”, an inventory of what they currently have.  This includes: 
 	* Ingredient
 	* Cost
 	* Amount + unit of measure
 	* Type of ingredient (from predetermined list)
 	* Expiration date override (otherwise use existing expiration dates)
 	* Custom camera picture, otherwise will use default placeholder. 
+* [x] SQL Lite server will store data locally.  
 * [ ] Inventory of pantry ingredients in a grid view 
-* [ ] Drawer on left hand side to filter by produce type (protein, vegetables, dairy, etc).  
+* [x] Drawer on left hand side to select ingredients or recipes. 
+  * [ ] Filter your inventory by produce type (protein, vegetables, dairy, etc).  
 * [ ] Expiration dates of pantry ingredients
 * [ ] Push notification for ingredients nearing expiration
-* [ ] Expired food items are added to a "Wasted Food" list in a separate screen that tallies up your cost.  
 * [x] Connect to Yummly’s API to retrieve recipes 
   * [ ] Recipes based on the ingredients that are going to expire soon are listed first
   * [x] Select Recipe Suggestions based on your ingredients 
@@ -35,6 +35,7 @@ The following are optional features:
 * [ ] social media aspects: add photo functionality to share with facebook/twitter/
 * [ ] Select recipe based on only ingredients you have
 * [ ] Select recipes with 1, 2, 3, etc missing ingredients in order. 
+* [ ] Expired food items are added to a "Wasted Food" list in a separate screen that tallies up your cost.  
 
 
 
