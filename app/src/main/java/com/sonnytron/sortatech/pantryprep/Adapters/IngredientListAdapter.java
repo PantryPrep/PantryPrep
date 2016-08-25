@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         private TextView tvIngredientType;
         private ImageView ivIngredientPhoto;
         private Ingredient mIngredient;
+        private Context mContext;
 
         public IngredientViewHolder(View itemView, OnViewHolderListener viewHolderListener) {
             super(itemView);
@@ -38,6 +40,12 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
             tvIngredientType = (TextView) itemView.findViewById(R.id.tvIngredientType);
             ivIngredientPhoto = (ImageView) itemView.findViewById(R.id.ivIngredient);
             mViewHolderListener = viewHolderListener;
+        }
+
+        public void bindContext(Context context) {
+            if (mContext == null) {
+                mContext = context;
+            }
         }
 
         public void bindIngredient(Ingredient ingredient) {
@@ -48,16 +56,17 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         private void updateLayout() {
             tvIngredientTitle.setText(mIngredient.getTitle());
             tvIngredientType.setText(mIngredient.getType());
-            if (mIngredient.getType() == "protein") {
-                ivIngredientPhoto.setImageResource(R.drawable.ic_protein);
-            } else if (mIngredient.getType() == "dairy") {
-                ivIngredientPhoto.setImageResource(R.drawable.ic_dairy);
-            } else if (mIngredient.getType() == "fruit") {
-                ivIngredientPhoto.setImageResource(R.drawable.ic_fruit);
-            } else if (mIngredient.getType() == "veggies") {
-                ivIngredientPhoto.setImageResource(R.drawable.ic_veggies);
+
+            if (mIngredient.getType().equals("protein")) {
+                Picasso.with(mContext).load(R.drawable.ic_protein).into(ivIngredientPhoto);
+            } else if (mIngredient.getType().equals("dairy")) {
+                Picasso.with(mContext).load(R.drawable.ic_dairy).into(ivIngredientPhoto);
+            } else if (mIngredient.getType().equals("fruit")) {
+                Picasso.with(mContext).load(R.drawable.ic_fruit).into(ivIngredientPhoto);
+            } else if (mIngredient.getType().equals("veggies")) {
+                Picasso.with(mContext).load(R.drawable.ic_veggies).into(ivIngredientPhoto);
             } else {
-                ivIngredientPhoto.setImageResource(R.drawable.ic_spices);
+                Picasso.with(mContext).load(R.drawable.ic_spices).into(ivIngredientPhoto);
             }
         }
 
@@ -92,6 +101,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     @Override
     public void onBindViewHolder(IngredientViewHolder holder, int position) {
         Ingredient ingredient = mIngredients.get(position);
+        holder.bindContext(mContext);
         holder.bindIngredient(ingredient);
     }
 
