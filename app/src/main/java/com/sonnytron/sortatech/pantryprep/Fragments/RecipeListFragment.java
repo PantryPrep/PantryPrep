@@ -53,14 +53,11 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
     //recycler view adapter pieces
     private RecipeListAdapter recipeListAdapter;
     private ArrayList<Match> recipes;
-    //private List<Ingredient> topFiveIngredients;
-    private String ingredientList = "";
     private ArrayList<String> topFiveIngredients;
+    private String spiceList = "";
 
-    @BindView(R.id.rvRecipes)
-    RecyclerView rvRecipes;
-    @BindView(R.id.ivBackground)
-    ImageView ivBackground;
+    @BindView(R.id.rvRecipes) RecyclerView rvRecipes;
+    @BindView(R.id.ivBackground) ImageView ivBackground;
 
     Network networkHelper;
 
@@ -82,9 +79,10 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
         setHasOptionsMenu(true);
 
         topFiveIngredients = new ArrayList<>();
+
         //init the recycler view, retrieve oldest ingredients, then populate recycler.
         initrvRecipes();
-        retrieveTopFiveIngredients();
+        retrieveAllIngredients();
         RetrieveQuery();
 
         return view;
@@ -112,8 +110,6 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
     }
 
     private void LaunchIngredientFilterFragment() {
-        Integer curContainerId = ((ViewGroup) getView().getParent()).getId();
-
         //pass in the 5 ingredients, so we can check it inside the recipe filter
         IngredientFilterFragment nextFrag = new IngredientFilterFragment();
 
@@ -122,11 +118,7 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
         bundle.putStringArrayList("selected_ingredients", topFiveIngredients);
         nextFrag.setArguments(bundle);
 
-        /*this.getFragmentManager().beginTransaction()
-                .replace(curContainerId,nextFrag,"ING_FILTER")
-                .addToBackStack(null)
-                .commit();*/
-
+        //launch the fragment as a child fragment.
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.child_fragment_container, nextFrag).addToBackStack(null).commit();
     }
@@ -135,11 +127,6 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
     public void onFilterFinish(ArrayList<String> returnedList) {
         topFiveIngredients = returnedList;
         RetrieveQuery();
-
-
-        for (int i = 0; i < returnedList.size(); i++) {
-            Log.d("onFilterFinish: ", returnedList.get(i));
-        }
     }
 
 
@@ -148,19 +135,22 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
     }
 
     //retrieves the ingredients.
-    private void retrieveTopFiveIngredients() {
+    private void retrieveAllIngredients() {
         IngredientManager ingredientManager = IngredientManager.get(getActivity());
         List<Ingredient> localTopFiveIngredients = ingredientManager.getTopFiveIngredients();
+        List<Ingredient> localSpiceList = ingredientManager.getIngredientsSpiceOnly();
 
         for (int i = 0; i < localTopFiveIngredients.size(); i++) {
-            //Log.d("top 5 ingredient " + i , localTopFiveIngredients.get(i).getTitle());
             topFiveIngredients.add(localTopFiveIngredients.get(i).getTitle());
         }
-        //topFiveIngredients.add("potato");
-        //topFiveIngredients.add(localTopFiveIngredients.get(0).getTitle());
-        //ingredientList = "&allowedIngredient[]=" + topFiveIngredients.get(0).getTitle();
 
-        //Log.d("top 5 ingredient", ingredientList);
+        for (int i = 0; i < localSpiceList.size(); i++) {
+            spiceList += localSpiceList.get(i).getTitle() + ",";
+            //Log.d("spice: ", localSpiceList.get(i).getTitle());
+        }
+        //chop comma off
+        spiceList = spiceList.substring(0, spiceList.length()-1);
+        Log.d("spice: ", spiceList);
     }
 
 
@@ -168,6 +158,8 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
     private void RetrieveQuery() {
 
         ivBackground.setImageDrawable(null);
+        recipeListAdapter.clearData();
+        recipeListAdapter.notifyDataSetChanged();
 
         //do the query if we have internet.
         if (networkHelper.isOnline() && networkHelper.isNetworkAvailable(getActivity())) {
@@ -188,7 +180,7 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
             Call<RecipeQuery> call;
 
             //fire retrofit call based on top 5 ingredients in list.
-            call = apiService.getResponse(APP_ID, APP_KEY, "", topFiveIngredients);
+            call = apiService.getResponse(APP_ID, APP_KEY, spiceList, topFiveIngredients);
 
             call.enqueue(new Callback<RecipeQuery>() {
                 @Override
@@ -216,7 +208,6 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
         } else {
             Log.e("RetrieveQuery: ", "no internet!");
         }
-
         //dismiss the progress dialog since we're done loading recipes.
         ((HomeActivity) getActivity()).disableProgressDialog();
     }

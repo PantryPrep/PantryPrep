@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
+//note: this is a child fragment of RecipeListFragment
 public class IngredientFilterFragment extends DialogFragment {
 
     @BindView(R.id.btnSave)
@@ -51,7 +52,6 @@ public class IngredientFilterFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         filteredIngredients = new ArrayList<>();
-        //listener = (onFilterFinishedListener) getActivity();
     }
 
 
@@ -75,7 +75,7 @@ public class IngredientFilterFragment extends DialogFragment {
 
     private void populateList() {
         IngredientManager ingredientManager = IngredientManager.get(getActivity());
-        List<Ingredient> ingredients = ingredientManager.getIngredients(); //NOTE: NEED TO EXCLUDE SPICES!!!!!
+        List<Ingredient> ingredients = ingredientManager.getIngredientsNoSpice(); //NOTE: NEED TO EXCLUDE SPICES!!!!!
 
 
         Bundle bundle = this.getArguments();
@@ -87,16 +87,18 @@ public class IngredientFilterFragment extends DialogFragment {
         listViewAdapter.notifyDataSetChanged();
 
 
-        //set item checked... might be better way to do this.
+        //set item checked... break out as soon as we find the item.
         for (int i = 0; i < expiringIngredientList.size(); i++) {
             for (int j = 0; j < lvFilterRecipeList.getCount(); j++) {
-                if (lvFilterRecipeList.getItemAtPosition(j).toString().equals(expiringIngredientList.get(i))) {
-                    lvFilterRecipeList.setItemChecked(i, true);
+                String listItem =lvFilterRecipeList.getItemAtPosition(j).toString();
+                String expiringIngredients = expiringIngredientList.get(i);
+
+                if (listItem.equals(expiringIngredients)) {
+                    lvFilterRecipeList.setItemChecked(j, true);
+                    break;
                 }
             }
-            //Log.d("listview items: ", lvFilterRecipeList.getItemAtPosition(i).toString());
         }
-
     }
 
     //initialize our button listeners.  Cancel will pop the fragment and save should... do something.
@@ -113,12 +115,12 @@ public class IngredientFilterFragment extends DialogFragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getActivity(),"clicked save!", Toast.LENGTH_SHORT).show();
                 if (lvFilterRecipeList.getCheckedItemCount() > 5) {
                     Toast.makeText(getActivity(), "Please limit selection to five items or less", Toast.LENGTH_SHORT).show();
                 }
                 //loop through the list view and return checked item.
                 else {
+                    //set listener to parent fragment.
                     onFilterFinishedListener listener = (onFilterFinishedListener) getParentFragment();
                     SparseBooleanArray checked = lvFilterRecipeList.getCheckedItemPositions();
                     for (int i = 0; i < lvFilterRecipeList.getAdapter().getCount(); i ++){
@@ -126,7 +128,7 @@ public class IngredientFilterFragment extends DialogFragment {
                             filteredIngredients.add(lvFilterRecipeList.getItemAtPosition(i).toString());
                         }
                     }
-                    //hopefully this returns our ingredients to the previous fragment.
+                    //returns our ingredients to the previous fragment so we can use it.
                     listener.onFilterFinish(filteredIngredients);
                     getFragmentManager().popBackStack();
                 }

@@ -64,6 +64,42 @@ public class IngredientManager {
         return ingredients;
     }
 
+    public List<Ingredient> getIngredientsNoSpice() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        String whereClause = "type != ?";
+        String[] whereArgs = {"spices"};
+        IngredientsCursorWrapper cursor = queryIngredients(whereClause, whereArgs);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                ingredients.add(cursor.getIngredient());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        Collections.sort(ingredients);
+        return ingredients;
+    }
+
+    public List<Ingredient> getIngredientsSpiceOnly() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        String whereClause = "type = ?";
+        String[] whereArgs = {"spices"};
+        IngredientsCursorWrapper cursor = queryIngredients(whereClause, whereArgs);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                ingredients.add(cursor.getIngredient());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        Collections.sort(ingredients);
+        return ingredients;
+    }
+
     //get top 5 ingredients
     public List<Ingredient> getTopFiveIngredients() {
         List<Ingredient> ingredients = new ArrayList<>();
