@@ -15,4 +15,6 @@
     <string name="saveIngredientTitle">Save</string>
     <string name="ingredientListTitle">Ingredient Name</string>
     <string name="ingredientListType">Ingredient Type</string>
+    <string name="btnIngFilterSave">Save</string>
+    <string name="btnIngFilterCancel">Cancel</string>
 </resources>

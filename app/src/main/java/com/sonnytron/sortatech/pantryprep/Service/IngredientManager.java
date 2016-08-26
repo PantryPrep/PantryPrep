@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 import com.sonnytron.sortatech.pantryprep.Database.IngredientsBaseHelper;
 import com.sonnytron.sortatech.pantryprep.Database.IngredientsCursorWrapper;
@@ -62,6 +64,27 @@ public class IngredientManager {
         return ingredients;
     }
 
+    //get top 5 ingredients
+    public List<Ingredient> getTopFiveIngredients() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        String whereClause = "type != ? and type != ?";
+        String[] whereArgs = {"spices", "fruits"};
+
+        //IngredientsCursorWrapper cursor = queryTopFiveIngredients("type != 'spices' and type != 'fruits' ", null);
+        IngredientsCursorWrapper cursor = queryTopFiveIngredients(whereClause, whereArgs);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                ingredients.add(cursor.getIngredient());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        Collections.sort(ingredients);
+        return ingredients;
+    }
+
     public Ingredient getIngredient(UUID id) {
         IngredientsCursorWrapper cursor = queryIngredients(
                 IngredientsTable.Cols.UUID + " = ?",
@@ -106,6 +129,36 @@ public class IngredientManager {
                 null,
                 null,
                 null);
+
+            return new IngredientsCursorWrapper(cursor);
+
+    }
+
+    private IngredientsCursorWrapper queryTopFiveIngredients(String whereClause, String[] whereArgs) {
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        /*Cursor cursor = mDatabase.query(IngredientsTable.NAME,
+                null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                IngredientsTable.Cols.EXP + " DESC ",
+                " 5 ");
+         return new IngredientsCursorWrapper(cursor);*/
+
+        String[] subQueries = new String[]{
+                "SELECT * FROM (SELECT * FROM ingredientsItems where type = 'protein' order by date desc limit 1) as meat",
+                "SELECT * FROM (SELECT * FROM ingredientsItems where type in ('dairy', 'veggies') order by date desc limit 4) as others"
+        };
+
+        String sql = qb.buildUnionQuery(subQueries,null,null);
+        Log.d("query sql: ", sql);
+
+        Cursor cursor = mDatabase.rawQuery(sql,null);
+
+
+
         return new IngredientsCursorWrapper(cursor);
+
     }
 }
