@@ -15,27 +15,25 @@ The following are core story functionality:
 	* Custom camera picture, otherwise will use default placeholder. 
 
 * [x] SQL Lite server will store data locally.  
-* [ ] Inventory of pantry ingredients in a grid view 
+* [X] Inventory of pantry ingredients in a list 
 * [x] Drawer on left hand side to select ingredients or recipes. 
   * [ ] Filter your inventory by produce type (protein, vegetables, dairy, etc).  
 * [ ] Expiration dates of pantry ingredients
 * [ ] Push notification for ingredients nearing expiration
 * [x] Connect to Yummly’s API to retrieve recipes 
-  * [ ] Recipes based on the ingredients that are going to expire soon are listed first
   * [x] Select Recipe Suggestions based on your ingredients 
   * [x] View recipe source in a WebView inside the client. 
-* [ ] Dialog Alert for Adding Ingredient
+* [X] Dialog Alert for Adding Ingredient
 
 
 The following are optional features: 
 
 * [ ] User can share “I made this!” with completed recipe and list of ingredients
 * [ ] User can tap “Wasted Food” and see list of expired ingredients
-* [ ] Nutrition breakdown (calories, fat, vitamins, sodium)
+* [X] Nutrition breakdown (calories, fat, vitamins, sodium)
 * [ ] As user is typing ingredient name auto complete
 * [ ] social media aspects: add photo functionality to share with facebook/twitter/
-* [ ] Select recipe based on only ingredients you have
-* [ ] Select recipes with 1, 2, 3, etc missing ingredients in order. 
+* [X] Select recipe based on only ingredients you have
 * [ ] Expired food items are added to a "Wasted Food" list in a separate screen that tallies up your cost.  
 
 
