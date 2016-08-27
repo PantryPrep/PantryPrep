@@ -1,5 +1,6 @@
 package com.sonnytron.sortatech.pantryprep.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * Created by sonnyrodriguez on 8/17/16.
  */
-public class IngredientsListFragment extends Fragment {
+public class IngredientsListFragment extends Fragment implements IngredientListAdapter.ListAdapterCallback {
     private RecyclerView rvIngredients;
     private FloatingActionButton btAddIngredient;
     private IngredientListAdapter mAdapter;
@@ -71,5 +72,15 @@ public class IngredientsListFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
         }
 
+    }
+
+    @Override
+    public void ingredientDeleteRequest(Ingredient ingredient) {
+        Toast.makeText(getActivity(), "We got a delete request!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void ingredientFragmentRequest(Ingredient ingredient) {
+        Toast.makeText(getActivity(), "We got a fragment request!", Toast.LENGTH_SHORT).show();
     }
 }

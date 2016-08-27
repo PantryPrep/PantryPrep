@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.sonnytron.sortatech.pantryprep.Adapters.IngredientListAdapter;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientDialogFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientsListFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.RecipeListFragment;
@@ -20,7 +22,7 @@ import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
 import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 
-public class HomeActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientCallback {
+public class HomeActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientCallback, IngredientListAdapter.ListAdapterCallback {
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
     private NavigationView nvDrawer;
@@ -133,5 +135,15 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
     @Override
     public void saveIngredient(Ingredient ingredient) {
         IngredientManager.get(this).addIngredient(ingredient);
+    }
+
+    @Override
+    public void ingredientDeleteRequest(Ingredient ingredient) {
+        Toast.makeText(this, "We have frag delete request from home!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void ingredientFragmentRequest(Ingredient ingredient) {
+        Toast.makeText(this, "We have frag request from home!", Toast.LENGTH_SHORT).show();
     }
 }

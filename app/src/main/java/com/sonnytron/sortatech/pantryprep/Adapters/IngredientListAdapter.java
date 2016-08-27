@@ -19,12 +19,26 @@ import java.util.List;
 /**
  * Created by sonnyrodriguez on 8/22/16.
  */
-public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder>{
+public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder> {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<Ingredient> mIngredients;
+    private ListAdapterCallback mCallback;
 
-    public static class IngredientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public interface ListAdapterCallback {
+        void ingredientFragmentRequest(Ingredient ingredient);
+        void ingredientDeleteRequest(Ingredient ingredient);
+    }
+
+    public interface OnLongListener {
+        public boolean onItemLongClick(int position);
+    }
+
+    public interface OnListener {
+        public void onItemClick(int position);
+    }
+
+    public static class IngredientViewHolder extends RecyclerView.ViewHolder {
 
         public OnViewHolderListener mViewHolderListener;
 
@@ -33,9 +47,11 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         private ImageView ivIngredientPhoto;
         private Ingredient mIngredient;
         private Context mContext;
+        public View view;
 
         public IngredientViewHolder(View itemView, OnViewHolderListener viewHolderListener) {
             super(itemView);
+            this.view = itemView;
             tvIngredientTitle = (TextView) itemView.findViewById(R.id.tvIngredientTitle);
             tvIngredientType = (TextView) itemView.findViewById(R.id.tvIngredientType);
             ivIngredientPhoto = (ImageView) itemView.findViewById(R.id.ivIngredient);
@@ -70,19 +86,15 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
             }
         }
 
-        @Override
-        public void onClick(View view) {
-            int pos = getAdapterPosition();
-            mViewHolderListener.onIngredientClick(view, pos);
-        }
-
         public interface OnViewHolderListener {
             void onIngredientClick(View caller, int position);
+            void onIngredientDelete(View caller, int position);
         }
     }
 
     public IngredientListAdapter(Context context, List<Ingredient> ingredients) {
         mContext = context;
+        mCallback = (ListAdapterCallback) mContext;
         mIngredients = ingredients;
     }
 
@@ -93,7 +105,12 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         return new IngredientViewHolder(view, new IngredientViewHolder.OnViewHolderListener() {
             @Override
             public void onIngredientClick(View caller, int position) {
+                mCallback.ingredientFragmentRequest(mIngredients.get(position));
+            }
 
+            @Override
+            public void onIngredientDelete(View caller, int position) {
+                mCallback.ingredientDeleteRequest(mIngredients.get(position));
             }
         });
     }
@@ -103,6 +120,15 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         Ingredient ingredient = mIngredients.get(position);
         holder.bindContext(mContext);
         holder.bindIngredient(ingredient);
+
+        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                return true;
+            }
+        });
+
     }
 
     @Override
