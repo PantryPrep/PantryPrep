@@ -114,6 +114,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         if (smallImageUrl.size() > 0) {
             Glide.with(getContext())
                     .load(smallImageUrl.get(0))
+                    .centerCrop()
                     //.placeholder()
                     .into(recipePicture);
         }
