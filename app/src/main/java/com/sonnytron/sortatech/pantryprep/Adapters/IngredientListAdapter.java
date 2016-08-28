@@ -28,7 +28,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     public interface ListAdapterCallback {
         void ingredientFragmentRequest(Ingredient ingredient);
         void ingredientDeleteRequest(Ingredient ingredient);
-        boolean onItemLongClick(int position, View view);
+        boolean onItemLongClick(int position, View view, Ingredient ingredient);
         void onItemClick(int position, View view);
     }
 
@@ -121,7 +121,8 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
                 int adapterPos = holder.getAdapterPosition();
                 if (adapterPos != RecyclerView.NO_POSITION) {
                     if (mCallback != null) {
-                        mCallback.onItemLongClick(adapterPos, holder.view);
+                        mIngredients.get(adapterPos);
+                        mCallback.onItemLongClick(adapterPos, holder.view, ingredient);
                     }
                 }
                 return false;

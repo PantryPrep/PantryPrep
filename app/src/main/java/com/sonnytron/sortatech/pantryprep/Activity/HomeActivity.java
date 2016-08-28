@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.sonnytron.sortatech.pantryprep.Adapters.IngredientListAdapter;
+import com.sonnytron.sortatech.pantryprep.Fragments.DeleteIngredientDialogFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientDialogFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientsListFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.RecipeListFragment;
@@ -23,7 +24,7 @@ import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
 import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 
-public class HomeActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientCallback, IngredientListAdapter.ListAdapterCallback {
+public class HomeActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientCallback, IngredientListAdapter.ListAdapterCallback, DeleteIngredientDialogFragment.DeleteIngredientListener {
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
     private NavigationView nvDrawer;
@@ -149,13 +150,27 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
     }
 
     @Override
-    public boolean onItemLongClick(int position, View view) {
-        Toast.makeText(this, "LONG CLICK BITCH", Toast.LENGTH_SHORT).show();
+    public boolean onItemLongClick(int position, View view, Ingredient ingredient) {
+        showDeleteIngredientAlert(ingredient);
         return false;
     }
 
     @Override
     public void onItemClick(int position, View view) {
-        Toast.makeText(this, "REG CLICK BITCH", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onIngredientDeleteConfirmed(boolean delete, Ingredient ingredient) {
+        if (delete) {
+            IngredientManager.get(this).deleteIngredient(ingredient);
+        }
+    }
+
+    public void showDeleteIngredientAlert(Ingredient ingredient) {
+        FragmentManager fm = getSupportFragmentManager();
+        DeleteIngredientDialogFragment deleteFrag = DeleteIngredientDialogFragment.newInstance(ingredient);
+        deleteFrag.setIngredient(ingredient);
+        deleteFrag.show(fm, "fragment_alert");
     }
 }
