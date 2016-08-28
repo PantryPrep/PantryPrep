@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.sonnytron.sortatech.pantryprep.Adapters.IngredientListAdapter;
@@ -145,5 +146,16 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
     @Override
     public void ingredientFragmentRequest(Ingredient ingredient) {
         Toast.makeText(this, "We have frag request from home!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onItemLongClick(int position, View view) {
+        Toast.makeText(this, "LONG CLICK BITCH", Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    @Override
+    public void onItemClick(int position, View view) {
+        Toast.makeText(this, "REG CLICK BITCH", Toast.LENGTH_SHORT).show();
     }
 }

@@ -28,14 +28,8 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     public interface ListAdapterCallback {
         void ingredientFragmentRequest(Ingredient ingredient);
         void ingredientDeleteRequest(Ingredient ingredient);
-    }
-
-    public interface OnLongListener {
-        public boolean onItemLongClick(int position);
-    }
-
-    public interface OnListener {
-        public void onItemClick(int position);
+        boolean onItemLongClick(int position, View view);
+        void onItemClick(int position, View view);
     }
 
     public static class IngredientViewHolder extends RecyclerView.ViewHolder {
@@ -116,16 +110,33 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     }
 
     @Override
-    public void onBindViewHolder(IngredientViewHolder holder, int position) {
-        Ingredient ingredient = mIngredients.get(position);
+    public void onBindViewHolder(final IngredientViewHolder holder, int position) {
+        final Ingredient ingredient = mIngredients.get(position);
         holder.bindContext(mContext);
         holder.bindIngredient(ingredient);
 
         holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                int adapterPos = holder.getAdapterPosition();
+                if (adapterPos != RecyclerView.NO_POSITION) {
+                    if (mCallback != null) {
+                        mCallback.onItemLongClick(adapterPos, holder.view);
+                    }
+                }
+                return false;
+            }
+        });
 
-                return true;
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int adapterPos = holder.getAdapterPosition();
+                if (adapterPos != RecyclerView.NO_POSITION) {
+                    if (mCallback != null) {
+                        mCallback.onItemClick(adapterPos, holder.view);
+                    }
+                }
             }
         });
 

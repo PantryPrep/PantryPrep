@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by sonnyrodriguez on 8/17/16.
  */
-public class IngredientsListFragment extends Fragment implements IngredientListAdapter.ListAdapterCallback {
+public class IngredientsListFragment extends Fragment {
     private RecyclerView rvIngredients;
     private FloatingActionButton btAddIngredient;
     private IngredientListAdapter mAdapter;
@@ -72,15 +72,5 @@ public class IngredientsListFragment extends Fragment implements IngredientListA
             mAdapter.notifyDataSetChanged();
         }
 
-    }
-
-    @Override
-    public void ingredientDeleteRequest(Ingredient ingredient) {
-        Toast.makeText(getActivity(), "We got a delete request!", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void ingredientFragmentRequest(Ingredient ingredient) {
-        Toast.makeText(getActivity(), "We got a fragment request!", Toast.LENGTH_SHORT).show();
     }
 }
