@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -60,8 +61,9 @@ public class IngredientDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mIngredient = new Ingredient();
+        Calendar calendar = Calendar.getInstance();
         Date mDate = new Date();
-
+        mDate = calendar.getTime();
 
         mIngredient.setExpDate(mDate);
         etIngredientTitle = (EditText) view.findViewById(R.id.etIngredientAddTitle);
