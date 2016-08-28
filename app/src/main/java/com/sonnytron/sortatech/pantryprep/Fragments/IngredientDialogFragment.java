@@ -61,7 +61,8 @@ public class IngredientDialogFragment extends DialogFragment {
 
         mIngredient = new Ingredient();
         Date mDate = new Date();
-        mDate.setTime(SystemClock.currentThreadTimeMillis());
+
+
         mIngredient.setExpDate(mDate);
         etIngredientTitle = (EditText) view.findViewById(R.id.etIngredientAddTitle);
 
