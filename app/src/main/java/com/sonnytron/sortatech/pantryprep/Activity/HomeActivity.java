@@ -26,6 +26,7 @@ import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.VeggieFrag
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientsListFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.RecipeListFragment;
 import com.sonnytron.sortatech.pantryprep.Helpers.ProgressDialogHelper;
+import com.sonnytron.sortatech.pantryprep.Helpers.PushNotificationHelper;
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
 import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
@@ -36,6 +37,7 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private ProgressDialogHelper pd;
+    private PushNotificationHelper pushNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,13 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
 
         //load progress dialog to show loading screens.
         pd = new ProgressDialogHelper();
+
+        //check for expiration.  
+        checkExpiration();
+        pushNote = new PushNotificationHelper();
+    }
+
+    private void checkExpiration() {
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -82,7 +91,6 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
         Class fragmentClass;
 
         nvDrawer.getMenu().findItem(R.id.nav_ingredients).setChecked(false);
-
         switch (item.getItemId()) {
             case R.id.nav_ingredients:
                 fragmentClass = IngredientsAllFragment.class;
