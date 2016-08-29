@@ -64,6 +64,98 @@ public class IngredientManager {
         return ingredients;
     }
 
+
+
+    public List<Ingredient> getIngredientsVeggies() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        String whereClause = "type = ?";
+        String[] whereArgs = {"veggies"};
+        IngredientsCursorWrapper cursor = queryIngredients(whereClause, whereArgs);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                ingredients.add(cursor.getIngredient());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        Collections.sort(ingredients);
+        return ingredients;
+    }
+
+    public List<Ingredient> getIngredientsProtein() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        String whereClause = "type = ?";
+        String[] whereArgs = {"protein"};
+        IngredientsCursorWrapper cursor = queryIngredients(whereClause, whereArgs);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                ingredients.add(cursor.getIngredient());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        Collections.sort(ingredients);
+        return ingredients;
+    }
+
+    public List<Ingredient> getIngredientsSpices() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        String whereClause = "type = ?";
+        String[] whereArgs = {"spices"};
+        IngredientsCursorWrapper cursor = queryIngredients(whereClause, whereArgs);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                ingredients.add(cursor.getIngredient());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        Collections.sort(ingredients);
+        return ingredients;
+    }
+
+    public List<Ingredient> getIngredientsFruits() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        String whereClause = "type = ?";
+        String[] whereArgs = {"fruit"};
+        IngredientsCursorWrapper cursor = queryIngredients(whereClause, whereArgs);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                ingredients.add(cursor.getIngredient());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        Collections.sort(ingredients);
+        return ingredients;
+    }
+
+    public List<Ingredient> getIngredientsDairy() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        String whereClause = "type = ?";
+        String[] whereArgs = {"dairy"};
+        IngredientsCursorWrapper cursor = queryIngredients(whereClause, whereArgs);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                ingredients.add(cursor.getIngredient());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        Collections.sort(ingredients);
+        return ingredients;
+    }
+
     public List<Ingredient> getIngredientsNoSpice() {
         List<Ingredient> ingredients = new ArrayList<>();
         String whereClause = "type != ?";

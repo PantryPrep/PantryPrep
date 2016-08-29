@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_ingredients"
-            android:icon="@drawable/ic_ingredient_icon"
-            android:title="@string/nav_ingredients_title"
-            android:checked="true"
-            />
-        <item
-            android:id="@+id/nav_recipes"
-            android:icon="@drawable/ic_recipes_icon"
-            android:title="@string/nav_recipes_title"
-            />
+        <item android:title="@string/ingredientGroup">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_ingredients"
+                        android:icon="@drawable/ic_ingredient_icon"
+                        android:title="@string/allIngredients" />
+                    <item
+                        android:id="@+id/nav_dairy_ingredients"
+                        android:icon="@drawable/nav_dairy"
+                        android:title="@string/dairy" />
+                    <item
+                        android:id="@+id/nav_fruit_ingredients"
+                        android:icon="@drawable/nav_fruit"
+                        android:title="@string/fruit" />
+                    <item
+                        android:id="@+id/nav_protein_ingredients"
+                        android:icon="@drawable/nav_protein"
+                        android:title="@string/protein" />
+                    <item
+                        android:id="@+id/nav_spices_ingredients"
+                        android:icon="@drawable/nav_spices"
+                        android:title="@string/spices" />
+                    <item
+                        android:id="@+id/nav_veggie_ingredients"
+                        android:icon="@drawable/nav_veggies"
+                        android:title="@string/veggies" />
+                </group>
+            </menu>
+        </item>
+        <group android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_recipes"
+                android:icon="@drawable/ic_recipes_icon"
+                android:title="@string/nav_recipes_title" />
+        </group>
     </group>
 </menu>

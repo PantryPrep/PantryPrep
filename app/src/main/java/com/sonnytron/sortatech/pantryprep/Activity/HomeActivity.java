@@ -13,6 +13,12 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientDialogFragment;
+import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.DairyFragment;
+import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.FruitFragment;
+import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.IngredientsAllFragment;
+import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.ProteinFragment;
+import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.SpicesFragment;
+import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.VeggieFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientsListFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.RecipeListFragment;
 import com.sonnytron.sortatech.pantryprep.Helpers.ProgressDialogHelper;
@@ -45,9 +51,13 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
         setupDrawerContent(nvDrawer);
 
         //load fragment on initial load.
-        nvDrawer.getMenu().getItem(0).setChecked(true);
+        if (savedInstanceState == null) {
+            nvDrawer.getMenu().performIdentifierAction(R.id.nav_ingredients, 0);
+        }
+
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.frame_content, new IngredientsListFragment()).commit();
+        fm.beginTransaction().replace(R.id.frame_content, new IngredientsAllFragment()).commit();
+        //create a new ingredients fragment
         setTitle(R.string.nav_ingredients_title);
 
         //load progress dialog to show loading screens.
@@ -71,16 +81,34 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
     public void selectDrawerItem(MenuItem item) {
         Fragment fragment = null;
         Class fragmentClass;
+
+        nvDrawer.getMenu().findItem(R.id.nav_ingredients).setChecked(false);
+
         switch (item.getItemId()) {
             case R.id.nav_ingredients:
-                fragmentClass = IngredientsListFragment.class;
+                fragmentClass = IngredientsAllFragment.class;
+                break;
+            case R.id.nav_dairy_ingredients:
+                fragmentClass = DairyFragment.class;
+                break;
+            case R.id.nav_fruit_ingredients:
+                fragmentClass = FruitFragment.class;
+                break;
+            case R.id.nav_protein_ingredients:
+                fragmentClass = ProteinFragment.class;
+                break;
+            case R.id.nav_spices_ingredients:
+                fragmentClass = SpicesFragment.class;
+                break;
+            case R.id.nav_veggie_ingredients:
+                fragmentClass = VeggieFragment.class;
                 break;
             case R.id.nav_recipes:
                 pd.launchProgressDialog(this);
                 fragmentClass = RecipeListFragment.class;
                 break;
             default:
-                fragmentClass = IngredientsListFragment.class;
+                fragmentClass = IngredientsAllFragment.class;
         }
 
         try {

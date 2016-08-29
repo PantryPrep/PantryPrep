@@ -19,10 +19,13 @@ import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by sonnyrodriguez on 8/17/16.
  */
-public class IngredientsListFragment extends Fragment {
+public abstract class IngredientsListFragment extends Fragment {
+
     private RecyclerView rvIngredients;
     private FloatingActionButton btAddIngredient;
     private IngredientListAdapter mAdapter;
@@ -59,10 +62,9 @@ public class IngredientsListFragment extends Fragment {
         dialogFragment.show(fm, "ingredient_dialog_fragment");
     }
 
-    public void updateUI() {
-        IngredientManager ingredientManager = IngredientManager.get(getActivity());
-        List<Ingredient> ingredients = ingredientManager.getIngredients();
+    protected abstract void updateUI();
 
+    public void addAll(List<Ingredient> ingredients) {
         if (mAdapter == null) {
             mAdapter = new IngredientListAdapter(getActivity(), ingredients);
             rvIngredients.setAdapter(mAdapter);
@@ -70,6 +72,6 @@ public class IngredientsListFragment extends Fragment {
             mAdapter.setIngredients(ingredients);
             mAdapter.notifyDataSetChanged();
         }
-
     }
+
 }
