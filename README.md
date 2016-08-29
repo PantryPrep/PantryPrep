@@ -17,9 +17,9 @@ The following are core story functionality:
 * [x] SQL Lite server will store data locally.  
 * [X] Inventory of pantry ingredients in a list 
 * [x] Drawer on left hand side to select ingredients or recipes. 
-  * [ ] Filter your inventory by produce type (protein, vegetables, dairy, etc).  
-* [ ] Expiration dates of pantry ingredients
-* [ ] Push notification for ingredients nearing expiration
+  * [X] Filter your inventory by produce type (protein, vegetables, dairy, etc).  
+* [X] Expiration dates of pantry ingredients
+* [X] Push notification for ingredients nearing expiration
 * [x] Connect to Yummly’s API to retrieve recipes 
   * [x] Select Recipe Suggestions based on your ingredients 
   * [x] View recipe source in a WebView inside the client. 
@@ -44,6 +44,7 @@ Here's a walkthrough of implemented user stories:
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
 
 ## Notes
 
