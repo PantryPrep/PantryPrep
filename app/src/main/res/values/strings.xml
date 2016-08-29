@@ -42,4 +42,10 @@
 
 
     <string name="ingredientGroup">Ingredients</string>
+
+    <!-- Delete Ingredient Fragment -->
+    <string name="tvDeleteTitle">Delete Ingredient?</string>
+    <string name="tvDeleteMessage">Are you sure you would like to delete this ingredient?</string>
+    <string name="btDeleteConfirm">OK</string>
+    <string name="btDeleteCancel">Cancel</string>
 </resources>

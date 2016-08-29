@@ -11,7 +11,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
+import com.sonnytron.sortatech.pantryprep.Adapters.IngredientListAdapter;
+import com.sonnytron.sortatech.pantryprep.Fragments.DeleteIngredientDialogFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientDialogFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.DairyFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.FruitFragment;
@@ -26,7 +30,7 @@ import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
 import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 
-public class HomeActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientCallback {
+public class HomeActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientCallback, IngredientListAdapter.ListAdapterCallback, DeleteIngredientDialogFragment.DeleteIngredientListener {
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
     private NavigationView nvDrawer;
@@ -52,13 +56,8 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
 
         //load fragment on initial load.
         if (savedInstanceState == null) {
-            nvDrawer.getMenu().performIdentifierAction(R.id.nav_ingredients, 0);
+            loadIngredientListFragment();
         }
-
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.frame_content, new IngredientsAllFragment()).commit();
-        //create a new ingredients fragment
-        setTitle(R.string.nav_ingredients_title);
 
         //load progress dialog to show loading screens.
         pd = new ProgressDialogHelper();
@@ -161,5 +160,50 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
     @Override
     public void saveIngredient(Ingredient ingredient) {
         IngredientManager.get(this).addIngredient(ingredient);
+        loadIngredientListFragment();
+    }
+
+    @Override
+    public void ingredientDeleteRequest(Ingredient ingredient) {
+        Toast.makeText(this, "We have frag delete request from home!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void ingredientFragmentRequest(Ingredient ingredient) {
+        Toast.makeText(this, "We have frag request from home!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onItemLongClick(int position, View view, Ingredient ingredient) {
+        showDeleteIngredientAlert(ingredient);
+        return false;
+    }
+
+    @Override
+    public void onItemClick(int position, View view) {
+
+    }
+
+    @Override
+    public void onIngredientDeleteConfirmed(boolean delete, Ingredient ingredient) {
+        if (delete) {
+            IngredientManager.get(this).deleteIngredient(ingredient);
+        }
+        loadIngredientListFragment();
+    }
+
+    private void loadIngredientListFragment() {
+        nvDrawer.getMenu().performIdentifierAction(R.id.nav_ingredients, 0);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frame_content, new IngredientsAllFragment()).commit();
+        //create a new ingredients fragment
+        setTitle(R.string.nav_ingredients_title);
+    }
+
+    public void showDeleteIngredientAlert(Ingredient ingredient) {
+        FragmentManager fm = getSupportFragmentManager();
+        DeleteIngredientDialogFragment deleteFrag = DeleteIngredientDialogFragment.newInstance(ingredient);
+        deleteFrag.setIngredient(ingredient);
+        deleteFrag.show(fm, "fragment_alert");
     }
 }

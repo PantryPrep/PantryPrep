@@ -19,12 +19,20 @@ import java.util.List;
 /**
  * Created by sonnyrodriguez on 8/22/16.
  */
-public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder>{
+public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder> {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<Ingredient> mIngredients;
+    private ListAdapterCallback mCallback;
 
-    public static class IngredientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public interface ListAdapterCallback {
+        void ingredientFragmentRequest(Ingredient ingredient);
+        void ingredientDeleteRequest(Ingredient ingredient);
+        boolean onItemLongClick(int position, View view, Ingredient ingredient);
+        void onItemClick(int position, View view);
+    }
+
+    public static class IngredientViewHolder extends RecyclerView.ViewHolder {
 
         public OnViewHolderListener mViewHolderListener;
 
@@ -33,9 +41,11 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         private ImageView ivIngredientPhoto;
         private Ingredient mIngredient;
         private Context mContext;
+        public View view;
 
         public IngredientViewHolder(View itemView, OnViewHolderListener viewHolderListener) {
             super(itemView);
+            this.view = itemView;
             tvIngredientTitle = (TextView) itemView.findViewById(R.id.tvIngredientTitle);
             tvIngredientType = (TextView) itemView.findViewById(R.id.tvIngredientType);
             ivIngredientPhoto = (ImageView) itemView.findViewById(R.id.ivIngredient);
@@ -70,19 +80,15 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
             }
         }
 
-        @Override
-        public void onClick(View view) {
-            int pos = getAdapterPosition();
-            mViewHolderListener.onIngredientClick(view, pos);
-        }
-
         public interface OnViewHolderListener {
             void onIngredientClick(View caller, int position);
+            void onIngredientDelete(View caller, int position);
         }
     }
 
     public IngredientListAdapter(Context context, List<Ingredient> ingredients) {
         mContext = context;
+        mCallback = (ListAdapterCallback) mContext;
         mIngredients = ingredients;
     }
 
@@ -93,16 +99,48 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         return new IngredientViewHolder(view, new IngredientViewHolder.OnViewHolderListener() {
             @Override
             public void onIngredientClick(View caller, int position) {
+                mCallback.ingredientFragmentRequest(mIngredients.get(position));
+            }
 
+            @Override
+            public void onIngredientDelete(View caller, int position) {
+                mCallback.ingredientDeleteRequest(mIngredients.get(position));
             }
         });
     }
 
     @Override
-    public void onBindViewHolder(IngredientViewHolder holder, int position) {
-        Ingredient ingredient = mIngredients.get(position);
+    public void onBindViewHolder(final IngredientViewHolder holder, int position) {
+        final Ingredient ingredient = mIngredients.get(position);
         holder.bindContext(mContext);
         holder.bindIngredient(ingredient);
+
+        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                int adapterPos = holder.getAdapterPosition();
+                if (adapterPos != RecyclerView.NO_POSITION) {
+                    if (mCallback != null) {
+                        mIngredients.get(adapterPos);
+                        mCallback.onItemLongClick(adapterPos, holder.view, ingredient);
+                    }
+                }
+                return false;
+            }
+        });
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int adapterPos = holder.getAdapterPosition();
+                if (adapterPos != RecyclerView.NO_POSITION) {
+                    if (mCallback != null) {
+                        mCallback.onItemClick(adapterPos, holder.view);
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
