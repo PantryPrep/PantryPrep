@@ -21,4 +21,11 @@ public interface RecipeQueryInterface {
                                   @Query("_app_key") String appKey,
                                   @Query("q") String queryText,
                                   @Query("allowedIngredient[]") List<String> ingredientList);
+
+    @GET("recipes?")
+    Call<RecipeQuery> getPaginatedResponse(@Query("_app_id") String appId,
+                                           @Query("_app_key") String appKey,
+                                           @Query("q") String queryText,
+                                           @Query("allowedIngredient[]") List<String> ingredientList,
+                                           @Query("start") String start);
 }

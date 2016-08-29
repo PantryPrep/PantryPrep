@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.sonnytron.sortatech.pantryprep.Activity.HomeActivity;
+import com.sonnytron.sortatech.pantryprep.Adapters.EndlessRecyclerViewScrollListener;
 import com.sonnytron.sortatech.pantryprep.Adapters.RecipeListAdapter;
 import com.sonnytron.sortatech.pantryprep.Helpers.Network;
 import com.sonnytron.sortatech.pantryprep.Interfaces.RecipeQueryInterface;
@@ -55,6 +56,8 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
     private ArrayList<Match> recipes;
     private ArrayList<String> topFiveIngredients;
     private String spiceList = "";
+    private int mCurrentPage = 0;
+
 
     @BindView(R.id.rvRecipes) RecyclerView rvRecipes;
     @BindView(R.id.ivBackground) ImageView ivBackground;
@@ -83,7 +86,7 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
         //init the recycler view, retrieve oldest ingredients, then populate recycler.
         initrvRecipes();
         retrieveAllIngredients();
-        RetrieveQuery();
+        RetrieveQuery(false);
 
         return view;
     }
@@ -126,7 +129,7 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
     @Override
     public void onFilterFinish(ArrayList<String> returnedList) {
         topFiveIngredients = returnedList;
-        RetrieveQuery();
+        RetrieveQuery(false); //new search on filter finish
     }
 
 
@@ -155,12 +158,7 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
 
 
     //Retrofit functions
-    private void RetrieveQuery() {
-
-        ivBackground.setImageDrawable(null);
-        recipeListAdapter.clearData();
-        recipeListAdapter.notifyDataSetChanged();
-
+    private void RetrieveQuery(boolean paginate) {
         //do the query if we have internet.
         if (networkHelper.isOnline() && networkHelper.isNetworkAvailable(getActivity())) {
             //http logging ----------------------------------------------
@@ -179,9 +177,17 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
             RecipeQueryInterface apiService = retrofitAdapter.create(RecipeQueryInterface.class);
             Call<RecipeQuery> call;
 
-            //fire retrofit call based on top 5 ingredients in list.
-            call = apiService.getResponse(APP_ID, APP_KEY, spiceList, topFiveIngredients);
-
+            if (!paginate) {
+                ivBackground.setImageDrawable(null);
+                recipeListAdapter.clearData();
+                recipeListAdapter.notifyDataSetChanged();
+                //fire retrofit call based on top 5 ingredients in list.
+                call = apiService.getResponse(APP_ID, APP_KEY, spiceList, topFiveIngredients);
+            }
+            else {
+                String currentMax = (mCurrentPage*10) + "";
+                call = apiService.getPaginatedResponse(APP_ID, APP_KEY, spiceList, topFiveIngredients,currentMax);
+            }
             call.enqueue(new Callback<RecipeQuery>() {
                 @Override
                 public void onResponse(Call<RecipeQuery> call, retrofit2.Response<RecipeQuery> response) {
@@ -220,10 +226,26 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
         recipes = new ArrayList<>();
         recipeListAdapter = new RecipeListAdapter(getActivity(), recipes);
         rvRecipes.setAdapter(recipeListAdapter);
-
-        //need a horizontal layout manager.
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvRecipes.setLayoutManager(layoutManager);
+        rvRecipes.addOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                customLoadMoreDataFromApi(page);
+                mCurrentPage++;
+            }
+        });
+
+    }
+
+    public void customLoadMoreDataFromApi(int page) {
+        // Send an API request to retrieve appropriate data using the offset value as a parameter.
+        //  --> Deserialize API response and then construct new objects to append to the adapter
+        //  --> Notify the adapter of the changes
+        mCurrentPage = page;
+        RetrieveQuery(true);
     }
 
 }

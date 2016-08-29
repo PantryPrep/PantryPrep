@@ -10,6 +10,7 @@
     <string name="fruit">Fruit</string>
     <string name="spices">Spices</string>
     <string name="dairy">Dairy</string>
+    <string name="allIngredients">All Ingredients</string>
     <string name="ingredientGroupTitle">Type of ingredient: </string>
     <string name="expDateTitle">Expiration date: </string>
     <string name="saveIngredientTitle">Save</string>
@@ -38,4 +39,7 @@
     <string name="tvVitELabel">Vitamin E</string>
     <string name="tvVitKLabel">Vitamin K</string>
     <string name="tvDefaultValue">n/a</string>
+
+
+    <string name="ingredientGroup">Ingredients</string>
 </resources>
