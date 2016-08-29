@@ -49,10 +49,7 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
         setupDrawerContent(nvDrawer);
 
         //load fragment on initial load.
-        nvDrawer.getMenu().getItem(0).setChecked(true);
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.frame_content, new IngredientsListFragment()).commit();
-        setTitle(R.string.nav_ingredients_title);
+        loadIngredientListFragment();
 
         //load progress dialog to show loading screens.
         pd = new ProgressDialogHelper();
@@ -137,6 +134,7 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
     @Override
     public void saveIngredient(Ingredient ingredient) {
         IngredientManager.get(this).addIngredient(ingredient);
+        loadIngredientListFragment();
     }
 
     @Override
@@ -165,6 +163,14 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
         if (delete) {
             IngredientManager.get(this).deleteIngredient(ingredient);
         }
+        loadIngredientListFragment();
+    }
+
+    private void loadIngredientListFragment() {
+        nvDrawer.getMenu().getItem(0).setChecked(true);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frame_content, new IngredientsListFragment()).commit();
+        setTitle(R.string.nav_ingredients_title);
     }
 
     public void showDeleteIngredientAlert(Ingredient ingredient) {
