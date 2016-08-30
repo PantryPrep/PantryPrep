@@ -25,7 +25,7 @@ public class Match {
     private String id;
     @SerializedName("smallImageUrls")
     @Expose
-    private List<Object> smallImageUrls = new ArrayList<Object>();
+    private List<String> smallImageUrls = new ArrayList<>();
     @SerializedName("sourceDisplayName")
     @Expose
     private String sourceDisplayName;
@@ -34,7 +34,7 @@ public class Match {
     private Integer totalTimeInSeconds;
     @SerializedName("ingredients")
     @Expose
-    private List<String> ingredients = new ArrayList<String>();
+    private List<String> ingredients = new ArrayList<>();
     @SerializedName("recipeName")
     @Expose
     private String recipeName;
@@ -116,7 +116,7 @@ public class Match {
      * @return
      *     The smallImageUrls
      */
-    public List<Object> getSmallImageUrls() {
+    public List<String> getSmallImageUrls() {
         return smallImageUrls;
     }
 
@@ -125,7 +125,7 @@ public class Match {
      * @param smallImageUrls
      *     The smallImageUrls
      */
-    public void setSmallImageUrls(List<Object> smallImageUrls) {
+    public void setSmallImageUrls(List<String> smallImageUrls) {
         this.smallImageUrls = smallImageUrls;
     }
 

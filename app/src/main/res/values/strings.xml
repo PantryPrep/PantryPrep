@@ -1,3 +1,51 @@
 <resources>
     <string name="app_name">PantryPrep</string>
+    <string name="nav_ingredients_title">Ingredients</string>
+    <string name="nav_recipes_title">Recipes</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="ingredient_hint">Spinach, red potatoes...</string>
+    <string name="protein">Protein</string>
+    <string name="veggies">Veggies</string>
+    <string name="fruit">Fruit</string>
+    <string name="spices">Spices</string>
+    <string name="dairy">Dairy</string>
+    <string name="allIngredients">All Ingredients</string>
+    <string name="ingredientGroupTitle">Type of ingredient: </string>
+    <string name="expDateTitle">Expiration date: </string>
+    <string name="saveIngredientTitle">Save</string>
+    <string name="ingredientListTitle">Ingredient Name</string>
+    <string name="ingredientListType">Ingredient Type</string>
+    <string name="btnIngFilterSave">Save</string>
+    <string name="btnIngFilterCancel">Cancel</string>
+
+    <!-- Nutrition Fragment values -->
+    <string name="tvNutritionFoodTitleLabel">Food title</string>
+    <string name="tvTotalCaloriesLabel">Total Calories</string>
+    <string name="tvTotalFatCaloriesLabel">Total Fat Calories</string>
+    <string name="tvTotalFatLabel">Total Fat</string>
+    <string name="tvCholesterolLabel">Cholesterol</string>
+    <string name="tvSodiumLabel">Sodium</string>
+    <string name="tvProteinLabel">Protein</string>
+    <string name="tvCalciumLAbel">Calcium</string>
+    <string name="tvIronLabel">Iron</string>
+    <string name="tvTotalCarbLabel">Total Carb.</string>
+    <string name="tvSugarLabel">Sugars</string>
+    <string name="tvFiberLabel">Fiber</string>
+    <string name="tvVitaminTitleLabel">Vitamins</string>
+    <string name="tvVitB12Label">Vitamin B-12</string>
+    <string name="tvVitALabel">Vitamin A</string>
+    <string name="tvVitCLabel">Vitamin C</string>
+    <string name="tvVitELabel">Vitamin E</string>
+    <string name="tvVitKLabel">Vitamin K</string>
+    <string name="tvDefaultValue">n/a</string>
+
+
+    <string name="ingredientGroup">Ingredients</string>
+
+    <!-- Delete Ingredient Fragment -->
+    <string name="tvDeleteTitle">Delete Ingredient?</string>
+    <string name="tvDeleteMessage">Are you sure you would like to delete this ingredient?</string>
+    <string name="btDeleteConfirm">OK</string>
+    <string name="btDeleteCancel">Cancel</string>
 </resources>

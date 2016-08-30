@@ -1,52 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sonnytron.sortatech.pantryprep.Activity.RecipeLookupActivity">
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvTweets"
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabsRecipeDetail"
+        app:pstsShouldExpand="true"
+        app:pstsTextAllCaps="true"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_height="48dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Recipe Title"
-        android:id="@+id/tvRecipeTitle"
-        android:textSize="25dp"
-        android:layout_below="@+id/rvTweets"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Serves: 1"
-        android:id="@+id/tvYield"
-        android:layout_below="@+id/tvRecipeTitle"
-        android:layout_centerHorizontal="true" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to Recipe"
-        android:id="@+id/btnGoRecipe"
-        android:layout_below="@+id/tvYield"
-        android:layout_centerHorizontal="true" />
-    <LinearLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/recipeViewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnGoRecipe"
-        android:layout_alignParentBottom="true">
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/lvIngredientList">
-        </ListView>
-    </LinearLayout>
-</RelativeLayout>
+        android:background="@android:color/white" />
+
+</LinearLayout>

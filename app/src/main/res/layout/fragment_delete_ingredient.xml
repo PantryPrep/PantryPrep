@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/delete_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tvDeleteTitle"
+        android:layout_margin="16dp"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/tvDeleteTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tvDeleteMessage"
+        android:layout_below="@+id/tvDeleteTitle"
+        android:text="@string/tvDeleteMessage"
+        android:lines="2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="32dp"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/layoutDeleteButtons"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@+id/tvDeleteMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btDeleteCancel"
+            android:text="@string/btDeleteCancel"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btDeleteConfirm"
+            android:text="@string/btDeleteConfirm"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</RelativeLayout>

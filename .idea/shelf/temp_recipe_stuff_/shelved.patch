@@ -1,0 +1,28 @@
+Index: app/src/main/res/layout/recipe_list.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/recipe_list.xml	(date 1471972233000)
++++ app/src/main/res/layout/recipe_list.xml	(revision )
+@@ -15,7 +15,16 @@
+             android:layout_height="wrap_content"
+             android:text="Recipe Title"
+             android:id="@+id/tvRecipeTitle"
+-            android:layout_alignParentTop="true"
+-            android:layout_alignTop="@id/ivRecipeImage"
+-            android:layout_toEndOf="@+id/ivRecipeImage" />
++            android:layout_centerVertical="true"
++            android:layout_toEndOf="@+id/ivRecipeImage"
++            />
++
++       <!-- <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="100 seconds"
++            android:id="@+id/tvTimeToCook"
++            android:layout_alignBottom="@+id/ivRecipeImage"
++            android:layout_toRightOf="@+id/ivRecipeImage"/>-->
++
+ </RelativeLayout>
+\ No newline at end of file
