@@ -31,6 +31,8 @@ import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
 import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientCallback, IngredientListAdapter.ListAdapterCallback, DeleteIngredientDialogFragment.DeleteIngredientListener {
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
@@ -63,13 +65,20 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
 
         //load progress dialog to show loading screens.
         pd = new ProgressDialogHelper();
+        pushNote = new PushNotificationHelper();
 
         //check for expiration.  
         checkExpiration();
-        pushNote = new PushNotificationHelper();
     }
 
     private void checkExpiration() {
+        IngredientManager ingredientManager = IngredientManager.get(this);
+        List<Ingredient> expiringIngredients = ingredientManager.getExpiringIngredients();
+
+        if (expiringIngredients.size() > 0){
+           //Log.d("checkExpiration: ", expiringIngredients.get(i).getTitle() + ":" + expiringIngredients.get(i).getExpDate());
+            pushNote.popNotification(this,expiringIngredients.get(0).getTitle());
+        }
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {

@@ -158,8 +158,10 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
 
 
     //Retrofit functions
-    private void RetrieveQuery(boolean paginate) {
+    private void RetrieveQuery(final boolean paginate) {
         //do the query if we have internet.
+        ivBackground.setImageDrawable(null);
+
         if (networkHelper.isOnline() && networkHelper.isNetworkAvailable(getActivity())) {
             //http logging ----------------------------------------------
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -178,7 +180,6 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
             Call<RecipeQuery> call;
 
             if (!paginate) {
-                ivBackground.setImageDrawable(null);
                 recipeListAdapter.clearData();
                 recipeListAdapter.notifyDataSetChanged();
                 //fire retrofit call based on top 5 ingredients in list.
@@ -194,7 +195,7 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
                     //get the list of recipes. (matches)
                     List<Match> recipeList = response.body().getMatches();
 
-                    if (recipeList.size() == 0) {
+                    if (recipeList.size() == 0 && !paginate) {
                         Glide.with(getContext())
                                 .load(R.drawable.ic_no_recipes_found)
                                 .fitCenter()
