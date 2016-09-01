@@ -2,6 +2,7 @@ package com.sonnytron.sortatech.pantryprep.Adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,15 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
         private void updateLayout() {
             tvIngredientTitle.setText(mIngredient.getTitle());
-            tvIngredientType.setText(mIngredient.getType());
+            String daysRemaining = "";
+            if (mIngredient.daysRemaining() > -1) {
+                daysRemaining = mIngredient.daysRemaining() == 1 ? mIngredient.daysRemaining() + " day remaining" : mIngredient.daysRemaining() + " days remaining";
+            } else if (mIngredient.daysRemaining() < 0) {
+                daysRemaining = mIngredient.daysRemaining() == -1 ? "expired 1 day ago" : "expired " + mIngredient.daysRemaining() + " days ago";
+                tvIngredientType.setTextColor(ContextCompat.getColor(mContext, R.color.PantryRed));
+            }
+
+            tvIngredientType.setText(daysRemaining);
 
             if (mIngredient.getType().equals("protein")) {
                 Picasso.with(mContext).load(R.drawable.ic_protein).into(ivIngredientPhoto);
