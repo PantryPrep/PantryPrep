@@ -1,17 +1,22 @@
 package com.sonnytron.sortatech.pantryprep.Fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.sonnytron.sortatech.pantryprep.Activity.RecipeLookupActivity;
 import com.sonnytron.sortatech.pantryprep.Helpers.Network;
 import com.sonnytron.sortatech.pantryprep.Interfaces.RecipeDetailInterface;
 import com.sonnytron.sortatech.pantryprep.Models.Recipes.NutritionEstimate;
@@ -32,7 +37,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class nutritionInfoFragment extends Fragment {
+public class NutritionInfoFragment extends DialogFragment {
 
     static final String APP_KEY = "3efb080dfe0c83724c37f5a0da27dbe8";
     static final String APP_ID = "d38afabf";
@@ -75,9 +80,11 @@ public class nutritionInfoFragment extends Fragment {
     TextView tvVitEValue;
     @BindView(R.id.tvVitKValue)
     TextView tvVitKValue;
+    @BindView(R.id.btnExitNutrition)
+    Button btnExitNutrition;
 
 
-    public nutritionInfoFragment() {
+    public NutritionInfoFragment() {
         // Required empty public constructor
     }
 
@@ -85,8 +92,8 @@ public class nutritionInfoFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         networkHelper = new Network();
-        recipeID = ((RecipeLookupActivity) getActivity()).getRecipeID();
 
+        recipeID = this.getArguments().getString("recipeID");
     }
 
     @Override
@@ -101,7 +108,19 @@ public class nutritionInfoFragment extends Fragment {
             RetrieveRecipe();
         }
 
+        initCloseButton();
+
         return view;
+    }
+
+
+    //no title bar for fragment
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        return dialog;
     }
 
     //Retrofit functions
@@ -159,7 +178,6 @@ public class nutritionInfoFragment extends Fragment {
 
         //loop through and pick out.
         for (NutritionEstimate curItem: nutritionEstimates){
-            //Log.d("nutrition item",curItem.getAttribute());
             String curAttribute = curItem.getAttribute();
 
             switch (curAttribute) {
@@ -212,16 +230,20 @@ public class nutritionInfoFragment extends Fragment {
                 case "TOCPHA":
                     tvVitEValue.setText(curItem.getValue() + " " + curItem.getUnit().getName());
                     break;
-
-
                 default:
                     break;
             }
         }
-
-
-
     }
 
+    private void initCloseButton(){
+
+        btnExitNutrition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+    }
 
 }

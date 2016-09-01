@@ -7,8 +7,12 @@
     <color name="mediumGreen">#66cd00</color>
     <!--pantry prep primary colors-->
     <color name="PantryGreen">#78EA5B</color>
-    <color name="PantryBlack">#363732</color>
+    <color name="PantryBlack">#4f2b21</color>
+    <color name="PantryJetBlack">#232321</color>
     <color name="PantryOrange">#F28948</color>
+    <color name="PantryWhite">#FFFFFF</color>
+    <color name="PantryYellow">#FFC142</color>
+
 
 
 </resources>

@@ -115,7 +115,13 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
             Glide.with(getContext())
                     .load(smallImageUrl.get(0))
                     .centerCrop()
-                    //.placeholder()
+                    .placeholder(R.mipmap.ic_food_placeholder)
+                    .into(recipePicture);
+        }
+        else{
+            Glide.with(getContext())
+                    .load(R.mipmap.ic_food_placeholder)
+                    .centerCrop()
                     .into(recipePicture);
         }
     }

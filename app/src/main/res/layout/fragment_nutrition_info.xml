@@ -1,301 +1,304 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
+    android:orientation="vertical">
 
-    <TableLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/tvNutritionFoodTitle"
+        style="?nutritionTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="1">
+        android:text="@string/tvNutritionFoodTitleLabel"
+        android:padding="10dp"
+        />
 
-        <TableRow>
-            <TextView
-                android:text="@string/tvNutritionFoodTitleLabel"
-                android:textStyle="bold"
-                android:textSize="32sp"
-                android:textColor="#000000"
-                android:layout_span="2"
-                android:textAlignment="center"
-                android:id="@+id/tvNutritionFoodTitle" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/tvTotalCaloriesLabel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                android:id="@+id/tvTotalCaloriesLabel" />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvCalorieValue" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/tvTotalFatCaloriesLabel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                android:id="@+id/tvTotalFatCaloriesLabel" />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvFatCalValue" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/tvTotalFatLabel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvFatValue" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/tvCholesterolLabel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                android:id="@+id/tvCholosterolLabel" />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvCholesterolValue" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/tvSodiumLabel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                android:id="@+id/tvSodiumLabel" />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvSodiumValue" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/tvProteinLabel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                android:id="@+id/tvProteinLabel" />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvProteinValue" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/tvCalciumLAbel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                android:id="@+id/tvCalciumLabel" />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvCalciumValue" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/tvIronLabel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                android:id="@+id/tvIronLabel" />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvIronValue" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/tvFiberLabel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                android:id="@+id/tvFiberLabel" />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvFiberValue" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/tvTotalCarbLabel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                android:id="@+id/tvTotalCarbLabel" />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvTotCarbValue" />
-        </TableRow>
-
-        <TableRow>
-            <TextView
-                android:text="@string/tvSugarLabel"
-                android:textColor="#000000"
-                android:gravity="left"
-                android:padding="4dip"
-                android:id="@+id/tvSugarLabel" />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:gravity="right"
-                android:padding="4dip"
-                android:id="@+id/tvSugarValue" />
-        </TableRow>
-
-    </TableLayout>
-    <TableLayout
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*">
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
-        <TableRow>
-            <TextView
-                android:text="@string/tvVitaminTitleLabel"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:layout_span="6"
-                android:textAlignment="center"
-                android:id="@+id/tvVitaminTitleLabel"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="@string/tvVitB12Label"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="left"
-                android:padding="4dip"
-                android:layout_weight="1"
-                />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="right"
-                android:padding="4dip"
-                android:layout_weight="1"
-                android:id="@+id/tvVitB12Value" />
-            <TextView
-                android:text="@string/tvVitALabel"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="left"
-                android:padding="4dip"
-                android:layout_weight="1"
-                />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="right"
-                android:padding="4dip"
-                android:layout_weight="1"
-                android:id="@+id/tvVitAValue" />
-            <TextView
-                android:text="@string/tvVitCLabel"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="left"
-                android:padding="4dip"
-                android:layout_weight="1"
-                />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="right"
-                android:padding="4dip"
-                android:layout_weight="1"
-                android:id="@+id/tvVitCValue" />
-        </TableRow>
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+            <TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="@string/tvVitELabel"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="left"
-                android:padding="4dip"
-                android:layout_weight="1"
-                />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="right"
-                android:padding="4dip"
-                android:layout_weight="1"
-                android:id="@+id/tvVitEValue" />
-            <TextView
-                android:text="@string/tvVitKLabel"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="left"
-                android:padding="4dip"
-                android:layout_weight="1"
-                />
-            <TextView
-                android:text="@string/tvDefaultValue"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="right"
-                android:padding="4dip"
-                android:layout_weight="1"
-                android:id="@+id/tvVitKValue" />
-            <TextView
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="left"
-                android:padding="4dip"
-                android:layout_weight="1"
-                android:id="@+id/tvVitPlaceholder1" />
-            <TextView
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:gravity="right"
-                android:padding="4dip"
-                android:layout_weight="1"
-                android:id="@+id/tvVitPlaceholder2" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/tvTotalCaloriesLabel"
+                    android:gravity="left"
+                    android:text="@string/tvTotalCaloriesLabel"
+                    style="?nutritionLabel" />
 
-    </TableLayout>
+                <TextView
+                    android:id="@+id/tvCalorieValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
 
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvTotalFatCaloriesLabel"
+                    android:gravity="left"
+                    android:text="@string/tvTotalFatCaloriesLabel"
+                    style="?nutritionLabel" />
+
+                <TextView
+                    android:id="@+id/tvFatCalValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:gravity="left"
+                    android:text="@string/tvTotalFatLabel"
+                    style="?nutritionLabel" />
+
+                <TextView
+                    android:id="@+id/tvFatValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvCholosterolLabel"
+                    android:gravity="left"
+                    android:text="@string/tvCholesterolLabel"
+                    style="?nutritionLabel" />
+
+                <TextView
+                    android:id="@+id/tvCholesterolValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvSodiumLabel"
+                    android:gravity="left"
+                    android:text="@string/tvSodiumLabel"
+                    style="?nutritionLabel" />
+
+                <TextView
+                    android:id="@+id/tvSodiumValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvProteinLabel"
+                    android:gravity="left"
+                    android:text="@string/tvProteinLabel"
+                    style="?nutritionLabel" />
+
+                <TextView
+                    android:id="@+id/tvProteinValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvCalciumLabel"
+                    android:gravity="left"
+                    android:text="@string/tvCalciumLAbel"
+                    style="?nutritionLabel" />
+
+                <TextView
+                    android:id="@+id/tvCalciumValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvIronLabel"
+                    android:gravity="left"
+                    android:text="@string/tvIronLabel"
+                    style="?nutritionLabel" />
+
+                <TextView
+                    android:id="@+id/tvIronValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvFiberLabel"
+                    android:gravity="left"
+                    android:text="@string/tvFiberLabel"
+                    style="?nutritionLabel" />
+
+                <TextView
+                    android:id="@+id/tvFiberValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvTotalCarbLabel"
+                    android:gravity="left"
+                    android:text="@string/tvTotalCarbLabel"
+                    style="?nutritionLabel" />
+
+                <TextView
+                    android:id="@+id/tvTotCarbValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvSugarLabel"
+                    android:gravity="left"
+                    android:text="@string/tvSugarLabel"
+                    style="?nutritionLabel" />
+
+                <TextView
+                    android:id="@+id/tvSugarValue"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:background="@color/PantryJetBlack" />
+            </TableRow>
+
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/tvVitB12Label"
+                    style="?nutritionLabel"/>
+
+                <TextView
+                    android:id="@+id/tvVitB12Value"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/tvVitALabel"
+                    style="?nutritionLabel"/>
+
+                <TextView
+                    android:id="@+id/tvVitAValue"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/tvVitCLabel"
+                    style="?nutritionLabel"/>
+
+                <TextView
+                    android:id="@+id/tvVitCValue"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/tvVitELabel"
+                    style="?nutritionLabel"/>
+
+                <TextView
+                    android:id="@+id/tvVitEValue"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/tvVitKLabel"
+                    style="?nutritionLabel"/>
+
+                <TextView
+                    android:id="@+id/tvVitKValue"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/tvDefaultValue"
+                    style="?nutritionAmount"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnExitNutrition"
+            android:id="@+id/btnExitNutrition"
+            android:layout_gravity="right"
+            android:background="@android:color/transparent"
+            android:textColor="@color/PantryOrange"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 </LinearLayout>

@@ -7,10 +7,11 @@
     <attr name="recipeListTitle" format="reference" />
     <attr name="recipeDetailTitle" format="reference" />
     <attr name="recipeDetailDetail" format="reference" />
+    <attr name="recipeDetailIngredients" format="reference" />
 
-    <attr name="text_recipe_detail_detail" format="reference" />
-    <attr name="text_Nutrition_detail_title" format="reference" />
-    <attr name="text_Nutrition_detail_detail" format="reference" />
+    <attr name="nutritionTitle" format="reference" />
+    <attr name="nutritionLabel" format="reference" />
+    <attr name="nutritionAmount" format="reference" />
 
 
     <!--drawer section-->
