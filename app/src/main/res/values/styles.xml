@@ -29,4 +29,68 @@
 
     </style>
 
+    <!--custom theme items below-->
+    <style name="IngredientListTitle">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_ingredient_title</item>
+        <!--<item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#888</item>-->
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/text_large_margin_top</item>
+    </style>
+    <style name="IngredientListDetail">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_ingredient_detail</item>
+        <!--<item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#888</item>-->
+        <item name="android:layout_marginTop">@dimen/text_large_margin_top</item>
+    </style>
+
+    <style name="RecipeListTitle">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_recipe_list_title</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/text_large_margin_top</item>
+    </style>
+    <style name="RecipeListDetail">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_ingredient_detail</item>
+        <item name="android:layout_marginTop">@dimen/text_large_margin_top</item>
+    </style>
+    <style name="RecipeDetailTitle">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_recipe_detail_title</item>
+        <item name="android:layout_marginTop">@dimen/text_large_margin_top</item>
+    </style>
+    <style name="RecipeDetailDetail">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_recipe_detail_detail</item>
+        <item name="android:layout_marginTop">@dimen/text_large_margin_top</item>
+    </style>
+
+    <style name="action_bar">
+        <item name="android:background">@color/PantryOrange</item>
+        <item name="background">@color/PantryOrange</item>
+    </style>
+
+    <!--drawer pieces-->
+    <style name="drawer">
+        <item name="android:background">@color/PantryGreen</item>
+        <item name="background">@color/PantryGreen</item>
+    </style>
+
+    <style name="drawerDetail">
+        <item name="android:textColor">@color/PantryGreen</item>
+        <item name="android:textSize">@dimen/text_drawer_detail</item>
+    </style>
+
+    <style name="drawerHeader">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_drawer_header</item>
+    </style>
+
+
+
 </resources>

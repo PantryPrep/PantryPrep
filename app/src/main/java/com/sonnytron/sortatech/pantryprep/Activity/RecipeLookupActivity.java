@@ -1,11 +1,14 @@
 package com.sonnytron.sortatech.pantryprep.Activity;
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -24,6 +27,7 @@ public class RecipeLookupActivity extends AppCompatActivity {
 
     private String recipeID;
     private SmartFragmentStatePagerAdapter adapterViewPager;
+    private PagerSlidingTabStrip tabStrip;
 
 
 
@@ -36,8 +40,9 @@ public class RecipeLookupActivity extends AppCompatActivity {
         adapterViewPager = new RecipePagerAdapter(getSupportFragmentManager());
         vpRecipeViewPager.setAdapter(adapterViewPager);
 
-        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabsRecipeDetail);
+        tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabsRecipeDetail);
         tabStrip.setViewPager(vpRecipeViewPager);
+        tabStrip.setTextColor(Color.WHITE);
 
         //retrieve ID, maybe check if null.
         //move this logic into tab

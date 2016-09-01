@@ -9,8 +9,12 @@
         android:id="@+id/tabsRecipeDetail"
         app:pstsShouldExpand="true"
         app:pstsTextAllCaps="true"
+        app:pstsIndicatorColor="@color/PantryGreen"
+        app:pstsIndicatorHeight="3dp"
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
+        android:layout_height="48dp"
+        android:background="@color/PantryOrange"
+        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/recipeViewpager"
