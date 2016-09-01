@@ -159,8 +159,9 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
 
     //Retrofit functions
     private void RetrieveQuery(final boolean paginate) {
-        ivBackground.setImageDrawable(null);
         //do the query if we have internet.
+        ivBackground.setImageDrawable(null);
+
         if (networkHelper.isOnline() && networkHelper.isNetworkAvailable(getActivity())) {
             //http logging ----------------------------------------------
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();

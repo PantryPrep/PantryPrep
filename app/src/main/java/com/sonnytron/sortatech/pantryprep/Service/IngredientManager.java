@@ -198,8 +198,26 @@ public class IngredientManager {
         String whereClause = "type != ? and type != ?";
         String[] whereArgs = {"spices", "fruits"};
 
-        //IngredientsCursorWrapper cursor = queryTopFiveIngredients("type != 'spices' and type != 'fruits' ", null);
         IngredientsCursorWrapper cursor = queryTopFiveIngredients(whereClause, whereArgs);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                ingredients.add(cursor.getIngredient());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        Collections.sort(ingredients);
+        return ingredients;
+    }
+
+    //get expiring
+    public List<Ingredient> getExpiringIngredients() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        String whereClause = "date <  DATE('now', '-1 days')";
+
+        IngredientsCursorWrapper cursor = queryIngredients(whereClause, null);
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -264,15 +282,6 @@ public class IngredientManager {
 
     private IngredientsCursorWrapper queryTopFiveIngredients(String whereClause, String[] whereArgs) {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-        /*Cursor cursor = mDatabase.query(IngredientsTable.NAME,
-                null,
-                whereClause,
-                whereArgs,
-                null,
-                null,
-                IngredientsTable.Cols.EXP + " DESC ",
-                " 5 ");
-         return new IngredientsCursorWrapper(cursor);*/
 
         String[] subQueries = new String[]{
                 "SELECT * FROM (SELECT * FROM ingredientsItems where type = 'protein' order by date desc limit 1) as meat",
@@ -280,13 +289,8 @@ public class IngredientManager {
         };
 
         String sql = qb.buildUnionQuery(subQueries,null,null);
-        Log.d("query sql: ", sql);
-
         Cursor cursor = mDatabase.rawQuery(sql,null);
 
-
-
         return new IngredientsCursorWrapper(cursor);
-
     }
 }
