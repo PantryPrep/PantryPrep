@@ -1,7 +1,6 @@
 package com.sonnytron.sortatech.pantryprep.Adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,13 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 /**
  * Created by sonnyrodriguez on 8/22/16.
@@ -77,15 +75,15 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
             tvIngredientType.setText(daysRemaining);
 
             if (mIngredient.getType().equals("protein")) {
-                Picasso.with(mContext).load(R.drawable.ic_protein).into(ivIngredientPhoto);
+                Picasso.with(mContext).load(R.drawable.ic_protein).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("dairy")) {
-                Picasso.with(mContext).load(R.drawable.ic_dairy).into(ivIngredientPhoto);
+                Picasso.with(mContext).load(R.drawable.ic_dairy).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("fruit")) {
-                Picasso.with(mContext).load(R.drawable.ic_fruit).into(ivIngredientPhoto);
+                Picasso.with(mContext).load(R.drawable.ic_fruit).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("veggies")) {
-                Picasso.with(mContext).load(R.drawable.ic_veggies).into(ivIngredientPhoto);
+                Picasso.with(mContext).load(R.drawable.ic_veggies).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
             } else {
-                Picasso.with(mContext).load(R.drawable.ic_spices).into(ivIngredientPhoto);
+                Picasso.with(mContext).load(R.drawable.ic_spices).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
             }
         }
 
