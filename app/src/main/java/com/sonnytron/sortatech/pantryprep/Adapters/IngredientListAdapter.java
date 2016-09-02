@@ -1,6 +1,8 @@
 package com.sonnytron.sortatech.pantryprep.Adapters;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,7 +66,13 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
         private void updateLayout() {
             tvIngredientTitle.setText(mIngredient.getTitle());
+            AssetManager am = mContext.getApplicationContext().getAssets();
+
+            Typeface poppinsFont = Typeface.createFromAsset(am, "fonts/Poppins-SemiBold.ttf");
+            tvIngredientTitle.setTypeface(poppinsFont);
+
             String daysRemaining = "";
+
             if (mIngredient.daysRemaining() > -1) {
                 daysRemaining = mIngredient.daysRemaining() == 1 ? mIngredient.daysRemaining() + " day remaining" : mIngredient.daysRemaining() + " days remaining";
             } else if (mIngredient.daysRemaining() < 0) {
@@ -72,18 +80,21 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
                 tvIngredientType.setTextColor(ContextCompat.getColor(mContext, R.color.PantryRed));
             }
 
+            Typeface sansFont = Typeface.createFromAsset(am, "fonts/PT_Sans-Web-Italic.ttf");
+
             tvIngredientType.setText(daysRemaining);
+            tvIngredientType.setTypeface(sansFont);
 
             if (mIngredient.getType().equals("protein")) {
-                Picasso.with(mContext).load(R.drawable.ic_protein).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
+                Picasso.with(mContext).load(R.drawable.nav_protein).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("dairy")) {
-                Picasso.with(mContext).load(R.drawable.ic_dairy).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
+                Picasso.with(mContext).load(R.drawable.nav_dairy).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("fruit")) {
-                Picasso.with(mContext).load(R.drawable.ic_fruit).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
+                Picasso.with(mContext).load(R.drawable.nav_fruit).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("veggies")) {
-                Picasso.with(mContext).load(R.drawable.ic_veggies).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
+                Picasso.with(mContext).load(R.drawable.nav_veggies).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
             } else {
-                Picasso.with(mContext).load(R.drawable.ic_spices).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
+                Picasso.with(mContext).load(R.drawable.nav_spices).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
             }
         }
 
