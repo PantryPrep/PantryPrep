@@ -62,7 +62,6 @@ public class IngredientDialogFragment extends DialogFragment {
         mIngredient = new Ingredient();
         Date mDate = new Date();
 
-
         mIngredient.setExpDate(mDate);
         etIngredientTitle = (EditText) view.findViewById(R.id.etIngredientAddTitle);
 
@@ -94,6 +93,8 @@ public class IngredientDialogFragment extends DialogFragment {
                         mIngredient.setType("veggies");
                         break;
                 }
+                Date newDate = new Date();
+                mIngredient.setExpDate(newDate);
                 mIngredient.dateFromType();
             }
         });
