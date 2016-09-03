@@ -8,11 +8,11 @@
     <attr name="recipeDetailTitle" format="reference" />
     <attr name="recipeDetailDetail" format="reference" />
     <attr name="recipeDetailIngredients" format="reference" />
-
     <attr name="nutritionTitle" format="reference" />
     <attr name="nutritionLabel" format="reference" />
     <attr name="nutritionAmount" format="reference" />
-
+    <attr name="ingredientsFilterTitle" format="reference" />
+    <attr name="ingredientsFilterDetail" format="reference" />
 
     <!--drawer section-->
     <attr name="drawerDetail" format="reference" />

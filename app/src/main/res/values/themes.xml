@@ -13,6 +13,9 @@
         <item name="nutritionTitle">@style/NutritionTitle</item>
         <item name="nutritionLabel">@style/NutritionLabel</item>
         <item name="nutritionAmount">@style/NutritionAmount</item>
+        <item name="ingredientsFilterTitle">@style/IngredientsFilterTitle</item>
+        <item name="ingredientsFilterDetail">@style/IngredientsFilterDetail</item>
+
 
         <item name="actionBarStyle">@style/action_bar</item>
         <item name="drawerDetail">@style/drawerDetail</item>

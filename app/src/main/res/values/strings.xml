@@ -49,4 +49,5 @@
     <string name="btDeleteConfirm">OK</string>
     <string name="btDeleteCancel">Cancel</string>
     <string name="btnExitNutrition">Close</string>
+    <string name="tvRecipeFilterTitle">Ingredient Filter</string>
 </resources>

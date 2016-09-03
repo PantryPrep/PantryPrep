@@ -8,15 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sonnytron.sortatech.pantryprep.Activity.RecipeLookupActivity;
-import com.sonnytron.sortatech.pantryprep.Helpers.ProgressDialogHelper;
+import com.sonnytron.sortatech.pantryprep.Models.Common.Attributes;
 import com.sonnytron.sortatech.pantryprep.Models.Query.Match;
 import com.sonnytron.sortatech.pantryprep.R;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by Steve on 8/17/2016.
@@ -26,7 +29,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
     private Context mContext;
     //list of recipes.  Large recipe image under "RecipeDetails",
     private List<Match> mRecipesMatches;
-    private ProgressDialogHelper pd;
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -34,6 +36,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
         public ImageView ivRecipeImage;
         public TextView tvRecipeTitle;
+        public RatingBar rbFoodRating;
+        public TextView tvCourseType;
+        public TextView tvCuisineType;
 
         //constructor
         public ViewHolder(View itemView, OnViewHolderClickListener listener) {
@@ -41,6 +46,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
             ivRecipeImage = (ImageView) itemView.findViewById(R.id.ivRecipeImage);
             tvRecipeTitle = (TextView) itemView.findViewById(R.id.tvRecipeTitle);
+            tvCourseType= (TextView) itemView.findViewById(R.id.tvCourse);
+            tvCuisineType = (TextView) itemView.findViewById(R.id.tvCuisineType);
+            rbFoodRating = (RatingBar) itemView.findViewById(R.id.rbFoodRating);
 
             if (listener != null) {
                 viewHolderClickListener = listener;
@@ -72,7 +80,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View recipeView = inflater.inflate(R.layout.recipe_list, parent, false);
-        pd = new ProgressDialogHelper();
 
 
         ViewHolder viewHolder = new ViewHolder(recipeView, new ViewHolder.OnViewHolderClickListener(){
@@ -81,17 +88,11 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
             @Override
             public void onItemClick(View caller, int position) {
                 Match clickedMatch = mRecipesMatches.get(position);
-
-
                 //launch intent to inflate recipe lookup activity.
                 Intent i = new Intent(getContext(), RecipeLookupActivity.class);
                 //need recipe ID to look up.
                 i.putExtra("recipe_id", clickedMatch.getId());
-                pd.launchProgressDialog(getContext());
                 mContext.startActivity(i);
-                pd.disableProgressDialog();
-
-                Log.d("onItemClick: ", clickedMatch.getId());
             }
         });
 
@@ -103,8 +104,41 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         Match recipeMatch = mRecipesMatches.get(position);
 
         TextView recipeTitle = holder.tvRecipeTitle;
+        TextView courseType = holder.tvCourseType;
+        TextView cuisineType = holder.tvCuisineType;
         ImageView recipePicture = holder.ivRecipeImage;
+        RatingBar ratingBar = holder.rbFoodRating;
 
+        Attributes attributes = recipeMatch.getAttributes();
+        List<String> courses = attributes.getCourse();
+        List<String> cuisines = attributes.getCuisine();
+
+        String finalCourse = "";
+        String finalCuisine = "";
+
+        //fix if course is empty but cuisine exists
+        if (courses.size() == 0){
+            courses = cuisines;
+        }
+
+        for(String i:courses){
+            finalCourse += i + ", ";
+        }
+        for(String i:cuisines){
+            finalCuisine += i + ", ";
+        }
+        finalCourse = finalCourse.replaceAll(", $", "");
+        finalCuisine = finalCuisine.replaceAll(", $", "");
+
+
+
+        courseType.setText(finalCourse);
+        cuisineType.setText(finalCuisine);
+
+
+
+
+        ratingBar.setRating(recipeMatch.getRating());
         List<String> smallImageUrl = recipeMatch.getSmallImageUrls();
 
         //set data in recycler view.
@@ -115,12 +149,14 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
             Glide.with(getContext())
                     .load(smallImageUrl.get(0))
                     .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(getContext()))
                     .placeholder(R.mipmap.ic_food_placeholder)
                     .into(recipePicture);
         }
         else{
             Glide.with(getContext())
                     .load(R.mipmap.ic_food_placeholder)
+                    .bitmapTransform(new CropCircleTransformation(getContext()))
                     .centerCrop()
                     .into(recipePicture);
         }
