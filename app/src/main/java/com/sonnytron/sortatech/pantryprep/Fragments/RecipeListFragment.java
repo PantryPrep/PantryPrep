@@ -2,6 +2,7 @@ package com.sonnytron.sortatech.pantryprep.Fragments;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -50,6 +51,8 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
     static final String APP_ID = "d38afabf";
     static final String BASE_URL = "http://api.yummly.com/v1/api/";
 
+    public static final String ARG_PAGE = "ARG_PAGE";
+    private int mPage;
 
     //recycler view adapter pieces
     private RecipeListAdapter recipeListAdapter;
@@ -61,6 +64,7 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
 
     @BindView(R.id.rvRecipes) RecyclerView rvRecipes;
     @BindView(R.id.ivBackground) ImageView ivBackground;
+    @BindView(R.id.fabFilterIngredients) FloatingActionButton fabFilterIngredients;
 
     Network networkHelper;
 
@@ -68,11 +72,19 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
         // Required empty public constructor
     }
 
+    public static RecipeListFragment newInstance(int page) {
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, page);
+        RecipeListFragment fragment = new RecipeListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         networkHelper = new Network();
-
+        mPage = getArguments().getInt(ARG_PAGE);
     }
 
     @Override
@@ -85,31 +97,20 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
 
         //init the recycler view, retrieve oldest ingredients, then populate recycler.
         initrvRecipes();
+        initFilterIngredients();
         retrieveAllIngredients();
         RetrieveQuery(false);
 
         return view;
     }
 
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.recipelist_toolbar, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        //handle action items
-        switch (item.getItemId()) {
-            //compose selected
-            case R.id.mifilterIngredient:
-                //launch the actual filter fragment
+    private void initFilterIngredients() {
+        fabFilterIngredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 LaunchIngredientFilterFragment();
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+            }
+        });
     }
 
     private void LaunchIngredientFilterFragment() {
@@ -124,17 +125,16 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
         //launch the fragment as a child fragment.
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.child_fragment_container, nextFrag).addToBackStack(null).commit();
+        fabFilterIngredients.setVisibility(View.GONE);
     }
 
     @Override
-    public void onFilterFinish(ArrayList<String> returnedList) {
-        topFiveIngredients = returnedList;
-        RetrieveQuery(false); //new search on filter finish
-    }
-
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+    public void onFilterFinish(ArrayList<String> returnedList, Boolean cancel) {
+        if (!cancel) {
+            topFiveIngredients = returnedList;
+            RetrieveQuery(false); //new search on filter finish
+        }
+        fabFilterIngredients.setVisibility(View.VISIBLE);
     }
 
     //retrieves the ingredients.
@@ -149,11 +149,11 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
 
         for (int i = 0; i < localSpiceList.size(); i++) {
             spiceList += localSpiceList.get(i).getTitle() + ",";
-            //Log.d("spice: ", localSpiceList.get(i).getTitle());
         }
-        //chop comma off
-        spiceList = spiceList.substring(0, spiceList.length()-1);
-        Log.d("spice: ", spiceList);
+        if (spiceList.length() > 0) {
+            //chop comma off
+            spiceList = spiceList.substring(0, spiceList.length() - 1);
+        }
     }
 
 

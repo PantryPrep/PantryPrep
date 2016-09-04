@@ -2,6 +2,7 @@ package com.sonnytron.sortatech.pantryprep.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,11 +26,29 @@ import butterknife.BindView;
 /**
  * Created by sonnyrodriguez on 8/17/16.
  */
-public abstract class IngredientsListFragment extends Fragment {
+public class IngredientsListFragment extends Fragment {
+
+    public static final String ARG_PAGE = "ARG_PAGE";
 
     private RecyclerView rvIngredients;
     private FloatingActionButton btAddIngredient;
     private IngredientListAdapter mAdapter;
+
+    private int mPage;
+
+    public static IngredientsListFragment newInstance(int page) {
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, page);
+        IngredientsListFragment fragment = new IngredientsListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPage = getArguments().getInt(ARG_PAGE);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,8 +82,6 @@ public abstract class IngredientsListFragment extends Fragment {
         dialogFragment.show(fm, "ingredient_dialog_fragment");
     }
 
-    protected abstract void updateUI();
-
     public void addAll(List<Ingredient> ingredients) {
         if (mAdapter == null) {
             mAdapter = new IngredientListAdapter(getActivity(), ingredients);
@@ -73,6 +90,13 @@ public abstract class IngredientsListFragment extends Fragment {
             mAdapter.setIngredients(ingredients);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void updateUI() {
+        IngredientManager ingredientManager = IngredientManager.get(getActivity());
+        List<Ingredient> ingredients = ingredientManager.getIngredients();
+
+        addAll(ingredients);
     }
 
 }

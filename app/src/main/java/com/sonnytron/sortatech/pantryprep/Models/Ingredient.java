@@ -107,6 +107,13 @@ public class Ingredient implements Parcelable, Comparable<Ingredient> {
         expDate = cal.getTime();
     }
 
+    public long daysRemaining() {
+        Date date = new Date();
+        long oneDay = 1000 * 60 * 60 * 24;
+        long timeDifference = (getExpDate().getTime() - date.getTime()) / oneDay;
+        return timeDifference;
+    }
+
     public void setExpDate(Date expDate) {
         this.expDate = expDate;
     }

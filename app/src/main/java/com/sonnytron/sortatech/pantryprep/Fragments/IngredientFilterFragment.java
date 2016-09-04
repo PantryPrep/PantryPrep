@@ -64,7 +64,7 @@ public class IngredientFilterFragment extends DialogFragment {
 
         //init array adapter
         items = new ArrayList<>();
-        listViewAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_multiple_choice, items);
+        listViewAdapter = new ArrayAdapter<>(getContext(), R.layout.custom_filter_ingredients, items);
         lvFilterRecipeList.setAdapter(listViewAdapter);
 
         populateList();
@@ -101,12 +101,14 @@ public class IngredientFilterFragment extends DialogFragment {
         }
     }
 
-    //initialize our button listeners.  Cancel will pop the fragment and save should... do something.
+    //initialize our button listeners.  Cancel will pop the fragment and save should pass data back..
     private void initButtonListeners() {
         //cancel button
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                onFilterFinishedListener listener = (onFilterFinishedListener) getParentFragment();
+                listener.onFilterFinish(filteredIngredients, true);
                 getFragmentManager().popBackStackImmediate();
             }
         });
@@ -129,7 +131,7 @@ public class IngredientFilterFragment extends DialogFragment {
                         }
                     }
                     //returns our ingredients to the previous fragment so we can use it.
-                    listener.onFilterFinish(filteredIngredients);
+                    listener.onFilterFinish(filteredIngredients, false);
                     getFragmentManager().popBackStack();
                 }
             }
@@ -137,6 +139,6 @@ public class IngredientFilterFragment extends DialogFragment {
     }
 
     public interface onFilterFinishedListener {
-        void onFilterFinish(ArrayList<String> returnedList);
+        void onFilterFinish(ArrayList<String> returnedList, Boolean cancel);
     }
 }

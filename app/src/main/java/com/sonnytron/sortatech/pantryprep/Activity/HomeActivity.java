@@ -1,9 +1,12 @@
 package com.sonnytron.sortatech.pantryprep.Activity;
 
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
+import com.sonnytron.sortatech.pantryprep.Adapters.HomeFragmentPagerAdapter;
 import com.sonnytron.sortatech.pantryprep.Adapters.IngredientListAdapter;
 import com.sonnytron.sortatech.pantryprep.Fragments.DeleteIngredientDialogFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientDialogFragment;
@@ -34,10 +39,7 @@ import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientCallback, IngredientListAdapter.ListAdapterCallback, DeleteIngredientDialogFragment.DeleteIngredientListener {
-    private DrawerLayout mDrawer;
-    private Toolbar mToolbar;
-    private NavigationView nvDrawer;
-    private ActionBarDrawerToggle mDrawerToggle;
+
     private ProgressDialogHelper pd;
     private PushNotificationHelper pushNote;
 
@@ -46,17 +48,28 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(mToolbar);
+//
+//        //setup drawer listener
+//        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        mDrawerToggle = setupDrawerToggle();
+//        mDrawer.addDrawerListener(mDrawerToggle);
+//
+//        //find and setup drawer
+//        nvDrawer = (NavigationView) findViewById(R.id.nav_view);
+//        setupDrawerContent(nvDrawer);
 
-        //setup drawer listener
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = setupDrawerToggle();
-        mDrawer.addDrawerListener(mDrawerToggle);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.mainViewPager);
+        viewPager.setAdapter(new HomeFragmentPagerAdapter(getSupportFragmentManager()));
 
-        //find and setup drawer
-        nvDrawer = (NavigationView) findViewById(R.id.nav_view);
-        setupDrawerContent(nvDrawer);
+        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabMenu);
+        tabStrip.setViewPager(viewPager);
+
+        AssetManager am = this.getAssets();
+
+        Typeface poppinsFont = Typeface.createFromAsset(am, "fonts/Poppins-SemiBold.ttf");
+        tabStrip.setTypeface(poppinsFont, 0);
 
         //load fragment on initial load.
         if (savedInstanceState == null) {
@@ -81,66 +94,66 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
         }
     }
 
-    private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
-    }
+//    private ActionBarDrawerToggle setupDrawerToggle() {
+//        return new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
+//    }
 
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                selectDrawerItem(item);
-                return true;
-            }
-        });
-    }
+//    private void setupDrawerContent(NavigationView navigationView) {
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(MenuItem item) {
+//                selectDrawerItem(item);
+//                return true;
+//            }
+//        });
+//    }
 
-    public void selectDrawerItem(MenuItem item) {
-        Fragment fragment = null;
-        Class fragmentClass;
-
-        nvDrawer.getMenu().findItem(R.id.nav_ingredients).setChecked(false);
-        switch (item.getItemId()) {
-            case R.id.nav_ingredients:
-                fragmentClass = IngredientsAllFragment.class;
-                break;
-            case R.id.nav_dairy_ingredients:
-                fragmentClass = DairyFragment.class;
-                break;
-            case R.id.nav_fruit_ingredients:
-                fragmentClass = FruitFragment.class;
-                break;
-            case R.id.nav_protein_ingredients:
-                fragmentClass = ProteinFragment.class;
-                break;
-            case R.id.nav_spices_ingredients:
-                fragmentClass = SpicesFragment.class;
-                break;
-            case R.id.nav_veggie_ingredients:
-                fragmentClass = VeggieFragment.class;
-                break;
-            case R.id.nav_recipes:
-                pd.launchProgressDialog(this);
-                fragmentClass = RecipeListFragment.class;
-                break;
-            default:
-                fragmentClass = IngredientsAllFragment.class;
-        }
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.frame_content, fragment).commit();
-
-        item.setChecked(true);
-
-        setTitle(item.getTitle());
-        mDrawer.closeDrawers();
-    }
+//    public void selectDrawerItem(MenuItem item) {
+//        Fragment fragment = null;
+//        Class fragmentClass;
+//
+//        nvDrawer.getMenu().findItem(R.id.nav_ingredients).setChecked(false);
+//        switch (item.getItemId()) {
+//            case R.id.nav_ingredients:
+//                fragmentClass = IngredientsAllFragment.class;
+//                break;
+//            case R.id.nav_dairy_ingredients:
+//                fragmentClass = DairyFragment.class;
+//                break;
+//            case R.id.nav_fruit_ingredients:
+//                fragmentClass = FruitFragment.class;
+//                break;
+//            case R.id.nav_protein_ingredients:
+//                fragmentClass = ProteinFragment.class;
+//                break;
+//            case R.id.nav_spices_ingredients:
+//                fragmentClass = SpicesFragment.class;
+//                break;
+//            case R.id.nav_veggie_ingredients:
+//                fragmentClass = VeggieFragment.class;
+//                break;
+//            case R.id.nav_recipes:
+//                pd.launchProgressDialog(this);
+//                fragmentClass = RecipeListFragment.class;
+//                break;
+//            default:
+//                fragmentClass = IngredientsAllFragment.class;
+//        }
+//
+//        try {
+//            fragment = (Fragment) fragmentClass.newInstance();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        FragmentManager fm = getSupportFragmentManager();
+//        fm.beginTransaction().replace(R.id.frame_content, fragment).commit();
+//
+//        item.setChecked(true);
+//
+//        setTitle(item.getTitle());
+//        mDrawer.closeDrawers();
+//    }
 
     //interface for disabling progress dialog.
     public void disableProgressDialog(){
@@ -152,27 +165,26 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (mDrawerToggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//
+//        mDrawerToggle.onConfigurationChanged(newConfig);
+//    }
 
     @Override
     public void saveIngredient(Ingredient ingredient) {
@@ -210,11 +222,10 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
     }
 
     private void loadIngredientListFragment() {
-        nvDrawer.getMenu().performIdentifierAction(R.id.nav_ingredients, 0);
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.frame_content, new IngredientsAllFragment()).commit();
-        //create a new ingredients fragment
-        setTitle(R.string.nav_ingredients_title);
+//        FragmentManager fm = getSupportFragmentManager();
+//        fm.beginTransaction().replace(R.id.frame_content, new IngredientsAllFragment()).commit();
+//        //create a new ingredients fragment
+//        setTitle(R.string.nav_ingredients_title);
     }
 
     public void showDeleteIngredientAlert(Ingredient ingredient) {

@@ -22,7 +22,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import com.sonnytron.sortatech.pantryprep.Fragments.NutritionInfoFragment;
+import com.sonnytron.sortatech.pantryprep.Helpers.CheckableRelativeLayout;
 import com.sonnytron.sortatech.pantryprep.Helpers.Network;
+import com.sonnytron.sortatech.pantryprep.Helpers.ProgressDialogHelper;
 import com.sonnytron.sortatech.pantryprep.Interfaces.RecipeDetailInterface;
 import com.sonnytron.sortatech.pantryprep.Models.Recipes.RecipeDetails;
 import com.sonnytron.sortatech.pantryprep.R;
@@ -52,6 +54,7 @@ public class RecipeLookupActivity extends AppCompatActivity {
     private String recipeID;
 
     Network networkHelper;
+    ProgressDialogHelper pd;
 
     //butterknife binds
     @BindView(R.id.tvYield)
@@ -71,6 +74,8 @@ public class RecipeLookupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_recipe_detail);
         ButterKnife.bind(this);
+        pd = new ProgressDialogHelper();
+        pd.launchProgressDialog(this);
 
         //initialize helper
         networkHelper = new Network();
@@ -87,6 +92,7 @@ public class RecipeLookupActivity extends AppCompatActivity {
             Toast.makeText(this, "No recipe ID found! ", Toast.LENGTH_LONG).show();
         } else {
             RetrieveRecipe();
+            //Log.d("onCreate: ", "poop");
         }
 
         initRecipeButton(this);
@@ -123,8 +129,10 @@ public class RecipeLookupActivity extends AppCompatActivity {
                     if (response.code() == 200) {
                         recipeDetail = response.body();
                         populateFields(recipeDetail);
+                        pd.disableProgressDialog();
                     } else {
                         Log.e("Retrofit onResponse: ", "Recipe API response failed");
+                        pd.disableProgressDialog();
                     }
                 }
 
@@ -133,10 +141,12 @@ public class RecipeLookupActivity extends AppCompatActivity {
                     //Log.d("Retrofit onFailure: ", call..toString());
                     t.printStackTrace();
                     Log.e("Retrofit Failure: ", t.toString(), t);
+                    pd.disableProgressDialog();
                 }
             });
         } else {
             Toast.makeText(this,"Internet currently unavailable, please retry later", Toast.LENGTH_LONG).show();
+            pd.disableProgressDialog();
             Log.e("RetrieveQuery: ", "no internet!");
         }
     }
