@@ -50,6 +50,8 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
     static final String APP_ID = "d38afabf";
     static final String BASE_URL = "http://api.yummly.com/v1/api/";
 
+    public static final String ARG_PAGE = "ARG_PAGE";
+    private int mPage;
 
     //recycler view adapter pieces
     private RecipeListAdapter recipeListAdapter;
@@ -68,11 +70,19 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
         // Required empty public constructor
     }
 
+    public static RecipeListFragment newInstance(int page) {
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, page);
+        RecipeListFragment fragment = new RecipeListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         networkHelper = new Network();
-
+        mPage = getArguments().getInt(ARG_PAGE);
     }
 
     @Override
