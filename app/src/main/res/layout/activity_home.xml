@@ -11,9 +11,14 @@
     <com.astuetz.PagerSlidingTabStrip
         android:id="@+id/tabMenu"
         app:pstsShouldExpand="true"
-        app:pstsTextAllCaps="true"
+        app:pstsTextAllCaps="false"
+        app:pstsIndicatorColor="@color/PantryBlack"
+        app:pstsUnderlineColor="@color/PantryWhite"
+        app:pstsTabBackground="@color/PantryOrange"
+        android:textSize="16dp"
+        android:textColor="@color/PantryBlack"
         android:layout_width="match_parent"
-        android:layout_height="48dp"></com.astuetz.PagerSlidingTabStrip>
+        android:layout_height="56dp"></com.astuetz.PagerSlidingTabStrip>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/mainViewPager"

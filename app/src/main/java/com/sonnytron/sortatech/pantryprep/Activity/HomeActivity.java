@@ -1,6 +1,8 @@
 package com.sonnytron.sortatech.pantryprep.Activity;
 
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -63,6 +65,11 @@ public class HomeActivity extends AppCompatActivity implements IngredientDialogF
 
         PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabMenu);
         tabStrip.setViewPager(viewPager);
+
+        AssetManager am = this.getAssets();
+
+        Typeface poppinsFont = Typeface.createFromAsset(am, "fonts/Poppins-SemiBold.ttf");
+        tabStrip.setTypeface(poppinsFont, 0);
 
         //load fragment on initial load.
         if (savedInstanceState == null) {
