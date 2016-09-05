@@ -109,7 +109,7 @@ public class IngredientFilterFragment extends DialogFragment {
             public void onClick(View view) {
                 onFilterFinishedListener listener = (onFilterFinishedListener) getParentFragment();
                 listener.onFilterFinish(filteredIngredients, true);
-                getFragmentManager().popBackStackImmediate();
+                dismiss();
             }
         });
 
@@ -132,7 +132,7 @@ public class IngredientFilterFragment extends DialogFragment {
                     }
                     //returns our ingredients to the previous fragment so we can use it.
                     listener.onFilterFinish(filteredIngredients, false);
-                    getFragmentManager().popBackStack();
+                    dismiss();
                 }
             }
         });

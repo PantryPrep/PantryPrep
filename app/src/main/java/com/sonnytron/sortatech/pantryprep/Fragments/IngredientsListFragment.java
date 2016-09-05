@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import butterknife.BindView;
 /**
  * Created by sonnyrodriguez on 8/17/16.
  */
-public class IngredientsListFragment extends Fragment {
+public class IngredientsListFragment extends Fragment implements IngredientDialogFragment.onAddFinishedListener{
 
     public static final String ARG_PAGE = "ARG_PAGE";
 
@@ -77,9 +78,9 @@ public class IngredientsListFragment extends Fragment {
     }
 
     public void showAddIngredient() {
-        FragmentManager fm = getFragmentManager();
+        //FragmentManager fm = getFragmentManager();
         IngredientDialogFragment dialogFragment = IngredientDialogFragment.newInstance("New Ingredient");
-        dialogFragment.show(fm, "ingredient_dialog_fragment");
+        dialogFragment.show(getChildFragmentManager(), "ingredient_dialog_fragment");
     }
 
     public void addAll(List<Ingredient> ingredients) {
@@ -99,4 +100,8 @@ public class IngredientsListFragment extends Fragment {
         addAll(ingredients);
     }
 
+    @Override
+    public void onFilterFinish() {
+        updateUI();
+    }
 }

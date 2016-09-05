@@ -22,12 +22,4 @@ public class IngredientsAllFragment extends IngredientsListFragment {
 
     }
 
-    @Override
-    public void updateUI() {
-        IngredientManager ingredientManager = IngredientManager.get(getActivity());
-        List<Ingredient> ingredients = ingredientManager.getIngredients();
-
-        addAll(ingredients);
-    }
-
 }

@@ -121,10 +121,9 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("selected_ingredients", topFiveIngredients);
         nextFrag.setArguments(bundle);
+        nextFrag.show(getChildFragmentManager(),"filter_frag");
 
         //launch the fragment as a child fragment.
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.child_fragment_container, nextFrag).addToBackStack(null).commit();
         fabFilterIngredients.setVisibility(View.GONE);
     }
 

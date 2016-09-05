@@ -16,9 +16,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.sonnytron.sortatech.pantryprep.Activity.HomeActivity;
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -122,6 +124,8 @@ public class IngredientDialogFragment extends DialogFragment {
         }
         if (ingredientValidated()) {
             mCallback.saveIngredient(mIngredient);
+            onAddFinishedListener listener = (onAddFinishedListener) getParentFragment();
+            listener.onFilterFinish();
             getDialog().dismiss();
         } else {
             Toast.makeText(getActivity(), "Please fill all required fields!", Toast.LENGTH_SHORT).show();
@@ -139,5 +143,9 @@ public class IngredientDialogFragment extends DialogFragment {
                 mIngredient.getTitle().length() > 0 &&
                 mIngredient.getType() != null &&
                 mIngredient.getType().length() > 0;
+    }
+
+    public interface onAddFinishedListener {
+        void onFilterFinish();
     }
 }
