@@ -29,8 +29,6 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     public interface ListAdapterCallback {
         void ingredientFragmentRequest(Ingredient ingredient);
         void ingredientDeleteRequest(Ingredient ingredient);
-        boolean onItemLongClick(int position, View view, Ingredient ingredient);
-        void onItemClick(int position, View view);
     }
 
     public static class IngredientViewHolder extends RecyclerView.ViewHolder {
@@ -104,11 +102,13 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         }
     }
 
+
     public IngredientListAdapter(Context context, List<Ingredient> ingredients) {
         mContext = context;
-        mCallback = (ListAdapterCallback) mContext;
+        //mCallback = (ListAdapterCallback) mContext;
         mIngredients = ingredients;
     }
+
 
     @Override
     public IngredientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -132,33 +132,6 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         final Ingredient ingredient = mIngredients.get(position);
         holder.bindContext(mContext);
         holder.bindIngredient(ingredient);
-
-        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                int adapterPos = holder.getAdapterPosition();
-                if (adapterPos != RecyclerView.NO_POSITION) {
-                    if (mCallback != null) {
-                        mIngredients.get(adapterPos);
-                        mCallback.onItemLongClick(adapterPos, holder.view, ingredient);
-                    }
-                }
-                return false;
-            }
-        });
-
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int adapterPos = holder.getAdapterPosition();
-                if (adapterPos != RecyclerView.NO_POSITION) {
-                    if (mCallback != null) {
-                        mCallback.onItemClick(adapterPos, holder.view);
-                    }
-                }
-            }
-        });
-
     }
 
     @Override

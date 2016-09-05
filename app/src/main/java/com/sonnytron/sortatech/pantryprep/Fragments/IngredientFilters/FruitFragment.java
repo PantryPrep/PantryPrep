@@ -28,6 +28,7 @@ public class FruitFragment extends IngredientsListFragment {
         List<Ingredient> ingredients = ingredientManager.getIngredientsFruits();
 
         addAll(ingredients);
+        setSpinner(3);
     }
 
 }

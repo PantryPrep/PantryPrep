@@ -32,12 +32,14 @@ public class IngredientDialogFragment extends DialogFragment {
     private Date expDate;
     private Button btSave;
     private Ingredient mIngredient;
-    private IngredientCallback mCallback;
+//    private IngredientCallback mCallback;
     private RadioGroup mGroup;
 
+/*
     public interface IngredientCallback {
         public void saveIngredient(Ingredient ingredient);
     }
+*/
 
     public IngredientDialogFragment() {
 
@@ -123,20 +125,20 @@ public class IngredientDialogFragment extends DialogFragment {
             mIngredient.setTitle(title);
         }
         if (ingredientValidated()) {
-            mCallback.saveIngredient(mIngredient);
+            //mCallback.saveIngredient(mIngredient);
             onAddFinishedListener listener = (onAddFinishedListener) getParentFragment();
-            listener.onFilterFinish();
+            listener.onFilterFinish(mIngredient);
             getDialog().dismiss();
         } else {
             Toast.makeText(getActivity(), "Please fill all required fields!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    @Override
+/*    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mCallback = (IngredientCallback) context;
-    }
+    }*/
 
     private boolean ingredientValidated() {
         return mIngredient.getTitle() != null &&
@@ -146,6 +148,6 @@ public class IngredientDialogFragment extends DialogFragment {
     }
 
     public interface onAddFinishedListener {
-        void onFilterFinish();
+        void onFilterFinish(Ingredient ingredient);
     }
 }

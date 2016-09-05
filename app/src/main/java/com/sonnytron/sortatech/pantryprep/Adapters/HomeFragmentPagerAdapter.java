@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.IngredientsAllFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientsListFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.RecipeListFragment;
 
@@ -28,11 +29,11 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return IngredientsListFragment.newInstance(position + 1);
+                return new IngredientsAllFragment();
             case 1:
-                return RecipeListFragment.newInstance(position + 2);
+                return new RecipeListFragment();
             default:
-                return IngredientsListFragment.newInstance(position + 1);
+                return new IngredientsAllFragment();
         }
     }
 

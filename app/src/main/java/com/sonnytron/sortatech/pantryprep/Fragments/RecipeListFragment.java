@@ -84,7 +84,7 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         networkHelper = new Network();
-        mPage = getArguments().getInt(ARG_PAGE);
+        //mPage = getArguments().getInt(ARG_PAGE);
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
+import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 
 /**
  * Created by sonnyrodriguez on 8/28/16.
@@ -24,7 +25,7 @@ public class DeleteIngredientDialogFragment extends DialogFragment {
     }
 
     public interface DeleteIngredientListener {
-        void onIngredientDeleteConfirmed(boolean delete, Ingredient ingredient);
+        void onIngredientDeleteConfirmed();
     }
 
     public static DeleteIngredientDialogFragment newInstance(Ingredient ingredient) {
@@ -53,8 +54,13 @@ public class DeleteIngredientDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 if (mIngredient != null) {
-                    DeleteIngredientListener listener = (DeleteIngredientListener) getActivity();
-                    listener.onIngredientDeleteConfirmed(true, mIngredient);
+                    //delete the ingredient from db
+                    IngredientManager ingredientManager = IngredientManager.get(getActivity());
+                    ingredientManager.deleteIngredient(mIngredient);
+                    //callback to let us know deletion finished, and to refresh ui.
+                    DeleteIngredientListener listener = (DeleteIngredientListener) getParentFragment();
+                    listener.onIngredientDeleteConfirmed();
+                    //listener.onIngredientDeleteConfirmed(true, mIngredient);
                     dismiss();
                 }
             }
@@ -64,8 +70,8 @@ public class DeleteIngredientDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 if (mIngredient != null) {
-                    DeleteIngredientListener listener = (DeleteIngredientListener) getActivity();
-                    listener.onIngredientDeleteConfirmed(false, mIngredient);
+                    //DeleteIngredientListener listener = (DeleteIngredientListener) getActivity();
+                    //listener.onIngredientDeleteConfirmed(false, mIngredient);
                     dismiss();
                 }
             }

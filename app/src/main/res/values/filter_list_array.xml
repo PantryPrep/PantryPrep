@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filter_list_array">
+        <item>All Ingredients</item>
+        <item>Protein</item>
+        <item>Dairy</item>
+        <item>Fruits</item>
+        <item>Veggies</item>
+        <item>Spices</item>
+    </string-array>
+</resources>

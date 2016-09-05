@@ -27,6 +27,7 @@ public class VeggieFragment extends IngredientsListFragment {
         List<Ingredient> ingredients = ingredientManager.getIngredientsVeggies();
 
         addAll(ingredients);
+        setSpinner(4);
     }
 
 }

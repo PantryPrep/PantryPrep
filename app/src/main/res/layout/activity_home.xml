@@ -14,7 +14,6 @@
         android:textSize="16dp"
         app:pstsIndicatorColor="@color/PantryBlack"
         app:pstsShouldExpand="true"
-        app:pstsTabBackground="@color/PantryOrange"
         app:pstsTextAllCaps="false"
         app:pstsUnderlineColor="@color/PantryWhite" />
 
