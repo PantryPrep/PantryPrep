@@ -285,7 +285,7 @@ public class IngredientManager {
 
         String[] subQueries = new String[]{
                 "SELECT * FROM (SELECT * FROM ingredientsItems where type = 'protein' order by date desc limit 1) as meat",
-                "SELECT * FROM (SELECT * FROM ingredientsItems where type in ('dairy', 'veggies') order by date desc limit 4) as others"
+                "SELECT * FROM (SELECT * FROM ingredientsItems where type in ('veggies') order by date desc limit 4) as others"
         };
 
         String sql = qb.buildUnionQuery(subQueries,null,null);
