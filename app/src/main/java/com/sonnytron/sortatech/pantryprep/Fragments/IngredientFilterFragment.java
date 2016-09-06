@@ -129,7 +129,7 @@ public class IngredientFilterFragment extends DialogFragment {
                     SparseBooleanArray checked = lvFilterRecipeList.getCheckedItemPositions();
                     for (int i = 0; i < lvFilterRecipeList.getAdapter().getCount(); i ++){
                         if (checked.get(i)){
-                            filteredIngredients.add(lvFilterRecipeList.getItemAtPosition(i).toString());
+                            filteredIngredients.add(lvFilterRecipeList.getItemAtPosition(i).toString().toLowerCase());
                         }
                     }
                     //returns our ingredients to the previous fragment so we can use it.

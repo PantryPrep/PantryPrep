@@ -89,15 +89,15 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
 
             if (mIngredient.getType().equals("protein")) {
-                Glide.with(mContext).load(R.drawable.nav_protein).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
+                Glide.with(mContext).load(R.mipmap.icon_protein).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("dairy")) {
-                Glide.with(mContext).load(R.drawable.nav_dairy).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
+                Glide.with(mContext).load(R.mipmap.icon_dairy).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("fruit")) {
-                Glide.with(mContext).load(R.drawable.nav_fruit).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
+                Glide.with(mContext).load(R.mipmap.icon_fruit).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("veggies")) {
-                Glide.with(mContext).load(R.drawable.nav_veggies).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
+                Glide.with(mContext).load(R.mipmap.icon_veggies).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
             } else {
-                Glide.with(mContext).load(R.drawable.nav_spices).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
+                Glide.with(mContext).load(R.mipmap.icon_spices).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
             }
         }
 

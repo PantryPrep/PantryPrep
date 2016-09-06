@@ -143,11 +143,11 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
         List<Ingredient> localSpiceList = ingredientManager.getIngredientsSpiceOnly();
 
         for (int i = 0; i < localTopFiveIngredients.size(); i++) {
-            topFiveIngredients.add(localTopFiveIngredients.get(i).getTitle());
+            topFiveIngredients.add(localTopFiveIngredients.get(i).getTitle().toLowerCase());
         }
 
         for (int i = 0; i < localSpiceList.size(); i++) {
-            spiceList += localSpiceList.get(i).getTitle() + ",";
+            spiceList += localSpiceList.get(i).getTitle().toLowerCase() + ",";
         }
         if (spiceList.length() > 0) {
             //chop comma off
