@@ -195,8 +195,8 @@ public class IngredientManager {
     //get top 5 ingredients
     public List<Ingredient> getTopFiveIngredients() {
         List<Ingredient> ingredients = new ArrayList<>();
-        String whereClause = "type != ? and type != ?";
-        String[] whereArgs = {"spices", "fruits"};
+        String whereClause = "type != ? and type != ? and type != ?";
+        String[] whereArgs = {"spices", "fruits", "dairy"};
 
         IngredientsCursorWrapper cursor = queryTopFiveIngredients(whereClause, whereArgs);
         try {
@@ -215,9 +215,8 @@ public class IngredientManager {
     //get expiring
     public List<Ingredient> getExpiringIngredients() {
         List<Ingredient> ingredients = new ArrayList<>();
-        String whereClause = "date <  DATE('now', '-1 days')";
 
-        IngredientsCursorWrapper cursor = queryIngredients(whereClause, null);
+        IngredientsCursorWrapper cursor = queryExpiringIngredients();
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -276,7 +275,7 @@ public class IngredientManager {
                 null,
                 null);
 
-            return new IngredientsCursorWrapper(cursor);
+        return new IngredientsCursorWrapper(cursor);
 
     }
 
@@ -289,6 +288,14 @@ public class IngredientManager {
         };
 
         String sql = qb.buildUnionQuery(subQueries,null,null);
+        Cursor cursor = mDatabase.rawQuery(sql,null);
+
+        return new IngredientsCursorWrapper(cursor);
+    }
+
+    //get expiring
+    public IngredientsCursorWrapper queryExpiringIngredients() {
+        String sql ="select strftime('%Y-%m-%d', date / 1000, 'unixepoch') AS EXPDATE, * from ingredientsItems where EXPDATE <= date('now', '5 days')";
         Cursor cursor = mDatabase.rawQuery(sql,null);
 
         return new IngredientsCursorWrapper(cursor);

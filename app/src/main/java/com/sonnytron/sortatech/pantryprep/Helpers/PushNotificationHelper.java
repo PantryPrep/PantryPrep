@@ -11,12 +11,17 @@ import com.sonnytron.sortatech.pantryprep.R;
  */
 public class PushNotificationHelper {
 
-    public void popNotification(Context context, String food)
+    public void popNotification(Context context, String food, boolean moreThanOne)
     {
-        String title="Your " + food + " is going to expire!";
-        String subject="Don't forget to use your produce!";
-        String body="test body";
+        String title;
+        if (moreThanOne) {
+            title = "Your " + food + " and more are going to expire!";
+        }
+        else {
+            title = "Your " + food + " is going to expire!";
+        }
 
+        String subject="Don't forget to use your produce!";
 
         NotificationManager nm =(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         //Notification notify= new Notification(R.drawable.noti,tittle,System.currentTimeMillis());

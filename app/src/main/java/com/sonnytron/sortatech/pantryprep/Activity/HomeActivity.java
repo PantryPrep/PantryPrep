@@ -53,9 +53,13 @@ public class HomeActivity extends AppCompatActivity  {
         IngredientManager ingredientManager = IngredientManager.get(this);
         List<Ingredient> expiringIngredients = ingredientManager.getExpiringIngredients();
 
-        if (expiringIngredients.size() > 0){
+        if (expiringIngredients.size() == 0){
            //Log.d("checkExpiration: ", expiringIngredients.get(i).getTitle() + ":" + expiringIngredients.get(i).getExpDate());
-            pushNote.popNotification(this,expiringIngredients.get(0).getTitle());
+            pushNote.popNotification(this,expiringIngredients.get(0).getTitle(), false);
+        }
+        else if (expiringIngredients.size() > 1){
+            //Log.d("checkExpiration: ", expiringIngredients.get(i).getTitle() + ":" + expiringIngredients.get(i).getExpDate());
+            pushNote.popNotification(this,expiringIngredients.get(0).getTitle(), true);
         }
     }
 

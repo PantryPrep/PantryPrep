@@ -1,24 +1,15 @@
 package com.sonnytron.sortatech.pantryprep.Fragments;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.sonnytron.sortatech.pantryprep.Activity.HomeActivity;
@@ -29,7 +20,6 @@ import com.sonnytron.sortatech.pantryprep.Interfaces.RecipeQueryInterface;
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.Models.Query.Match;
 import com.sonnytron.sortatech.pantryprep.Models.Query.RecipeQuery;
-import com.sonnytron.sortatech.pantryprep.Models.Recipes.RecipeDetails;
 import com.sonnytron.sortatech.pantryprep.R;
 import com.sonnytron.sortatech.pantryprep.Service.IngredientManager;
 
@@ -196,7 +186,7 @@ public class RecipeListFragment extends Fragment implements IngredientFilterFrag
 
                     if (recipeList.size() == 0 && !paginate) {
                         Glide.with(getContext())
-                                .load(R.drawable.ic_no_recipes_found)
+                                .load(R.drawable.ic_no_recipes_found_svg)
                                 .fitCenter()
                                 .into(ivBackground);
                     } else {
