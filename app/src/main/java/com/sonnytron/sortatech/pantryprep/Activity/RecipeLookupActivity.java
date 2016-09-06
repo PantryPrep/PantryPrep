@@ -165,9 +165,14 @@ public class RecipeLookupActivity extends AppCompatActivity {
         Typeface poppinsFont = Typeface.createFromAsset(am, "fonts/Poppins-SemiBold.ttf");
 
         title.setTypeface(poppinsFont);
-
-        //yields
-        tvYield.setText("Makes " + recipeDetails.getNumberOfServings() + " serving(s)");
+        
+        String yieldText;
+        if (recipeDetails.getNumberOfServings() == 1) {
+            yieldText = "Makes 1 serving";
+        } else {
+            yieldText = "Makes " + recipeDetails.getNumberOfServings() + " servings";
+        }
+        tvYield.setText(yieldText);
 
         tvYield.setTypeface(poppinsFont);
 
