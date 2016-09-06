@@ -2,6 +2,8 @@ package com.sonnytron.sortatech.pantryprep.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +42,8 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         public TextView tvCourseType;
         public TextView tvCuisineType;
 
+        public Context mContext;
+
         //constructor
         public ViewHolder(View itemView, OnViewHolderClickListener listener) {
             super(itemView);
@@ -55,6 +59,16 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
                 //note: change this to respond to click on the row. Might use the recycler view on click listener from codepath.
                 ivRecipeImage.setOnClickListener(this);
             }
+        }
+
+        public void setContext(Context context) {
+            mContext = context;
+            AssetManager am = mContext.getApplicationContext().getAssets();
+            Typeface poppinsFont = Typeface.createFromAsset(am, "fonts/Poppins-SemiBold.ttf");
+            tvRecipeTitle.setTypeface(poppinsFont);
+            Typeface sansFont = Typeface.createFromAsset(am, "fonts/PT_Sans-Web-Italic.ttf");
+            tvCourseType.setTypeface(sansFont);
+            tvCuisineType.setTypeface(sansFont);
         }
 
         @Override
@@ -81,7 +95,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         LayoutInflater inflater = LayoutInflater.from(context);
         View recipeView = inflater.inflate(R.layout.recipe_list, parent, false);
 
-
         ViewHolder viewHolder = new ViewHolder(recipeView, new ViewHolder.OnViewHolderClickListener(){
 
             //do logic for item click on here.
@@ -95,6 +108,8 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
                 mContext.startActivity(i);
             }
         });
+
+        viewHolder.setContext(mContext);
 
         return viewHolder;
     }

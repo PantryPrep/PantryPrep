@@ -2,7 +2,9 @@ package com.sonnytron.sortatech.pantryprep.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -158,8 +160,21 @@ public class RecipeLookupActivity extends AppCompatActivity {
         TextView title = (TextView) toolbar.findViewById(R.id.tvToolbarTitle);
         title.setText(recipeDetails.getName());
 
-        //yields
-        tvYield.setText("Makes " + recipeDetails.getNumberOfServings() + " serving(s)");
+        AssetManager am = this.getAssets();
+
+        Typeface poppinsFont = Typeface.createFromAsset(am, "fonts/Poppins-SemiBold.ttf");
+
+        title.setTypeface(poppinsFont);
+        
+        String yieldText;
+        if (recipeDetails.getNumberOfServings() == 1) {
+            yieldText = "Makes 1 serving";
+        } else {
+            yieldText = "Makes " + recipeDetails.getNumberOfServings() + " servings";
+        }
+        tvYield.setText(yieldText);
+
+        tvYield.setTypeface(poppinsFont);
 
         //if we have an image, print it.
         if (recipeDetails.getImages().size() > 0) {
