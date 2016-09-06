@@ -23,6 +23,12 @@
     <dimen name="text_ingredients_filter_title">30sp</dimen>
     <dimen name="text_ingredients_filter_detail">14sp</dimen>
 
+    <dimen name="text_ingredients_add_title">20sp</dimen>
+    <dimen name="text_ingredients_add_detail">14sp</dimen>
+
+    <dimen name="text_ingredients_delete_title">20sp</dimen>
+    <dimen name="text_ingredients_delete_detail">14sp</dimen>
+
     <!--nav drawer stuff-->
     <dimen name="text_drawer_detail">12sp</dimen>
     <dimen name="text_drawer_header">16sp</dimen>

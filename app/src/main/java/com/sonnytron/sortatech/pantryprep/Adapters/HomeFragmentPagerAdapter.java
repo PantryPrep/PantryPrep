@@ -24,6 +24,7 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
         return PAGE_COUNT;
     }
 
+
     @Override
     public Fragment getItem(int position) {
 

@@ -3,12 +3,15 @@ package com.sonnytron.sortatech.pantryprep.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,23 +26,23 @@ import com.sonnytron.sortatech.pantryprep.R;
 import java.util.ArrayList;
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by sonnyrodriguez on 8/19/16.
  */
 public class IngredientDialogFragment extends DialogFragment {
+
+
+
     private EditText etIngredientTitle;
-    private String ingredientType;
-    private Date expDate;
     private Button btSave;
     private Ingredient mIngredient;
-//    private IngredientCallback mCallback;
     private RadioGroup mGroup;
 
-/*
-    public interface IngredientCallback {
-        public void saveIngredient(Ingredient ingredient);
-    }
-*/
+    @BindView(R.id.btnCancelIngredient) Button btnCancel;
+
 
     public IngredientDialogFragment() {
 
@@ -56,7 +59,10 @@ public class IngredientDialogFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.ingredient_dialog_fragment, container);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        View view = inflater.inflate(R.layout.ingredient_dialog_fragment, container);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -110,8 +116,15 @@ public class IngredientDialogFragment extends DialogFragment {
             }
         });
 
-        String title = getArguments().getString("title", "New Ingredient");
-        getDialog().setTitle(title);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+
+        //String title = getArguments().getString("title", "New Ingredient");
+        //getDialog().setTitle(title);
 
         etIngredientTitle.requestFocus();
 
@@ -134,11 +147,6 @@ public class IngredientDialogFragment extends DialogFragment {
         }
     }
 
-/*    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mCallback = (IngredientCallback) context;
-    }*/
 
     private boolean ingredientValidated() {
         return mIngredient.getTitle() != null &&

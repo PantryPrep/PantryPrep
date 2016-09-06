@@ -2,12 +2,14 @@ package com.sonnytron.sortatech.pantryprep.Fragments;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -73,7 +75,7 @@ public abstract class IngredientsListFragment extends Fragment implements Ingred
 
         //initialize elements
         initializeFABAddIng();
-        initializeOrderSpinner(0);
+        initializeOrderSpinner();
 
         //add ingredients
         updateUI();
@@ -86,7 +88,6 @@ public abstract class IngredientsListFragment extends Fragment implements Ingred
     }
 
     //initializers--------------------------------
-
     private void initItemLongClick() {
         ItemClickSupport.addTo(rvIngredients).setOnItemLongClickListener(
                 new ItemClickSupport.OnItemLongClickListener() {
@@ -128,9 +129,10 @@ public abstract class IngredientsListFragment extends Fragment implements Ingred
         });
     }
 
-    public void initializeOrderSpinner(int curPos) {
+    public void initializeOrderSpinner() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.filter_list_array, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
         spFilterItems.setAdapter(adapter);
         //spFilterItems.setSelection(curPos);
         spFilterItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -146,8 +148,8 @@ public abstract class IngredientsListFragment extends Fragment implements Ingred
                 }
 
                 //set text color
-                /*TextView tmpView = (TextView) spFilterItems.getSelectedView().findViewById(android.R.id.text1);
-                tmpView.setTextColor(Color.WHITE);*/
+                TextView tmpView = (TextView) spFilterItems.getSelectedView().findViewById(android.R.id.text1);
+                tmpView.setTextColor(ContextCompat.getColor(getContext(), R.color.PantryWhite));
             }
 
             @Override
@@ -203,6 +205,11 @@ public abstract class IngredientsListFragment extends Fragment implements Ingred
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
 
     public void showAddIngredient() {
         IngredientDialogFragment dialogFragment = IngredientDialogFragment.newInstance("New Ingredient");

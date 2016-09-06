@@ -13,6 +13,10 @@
     <attr name="nutritionAmount" format="reference" />
     <attr name="ingredientsFilterTitle" format="reference" />
     <attr name="ingredientsFilterDetail" format="reference" />
+    <attr name="ingredientsAddTitle" format="reference" />
+    <attr name="ingredientsAddDetail" format="reference" />
+    <attr name="ingredientsDeleteTitle" format="reference" />
+    <attr name="ingredientsDeleteDetail" format="reference" />
 
     <!--drawer section-->
     <attr name="drawerDetail" format="reference" />

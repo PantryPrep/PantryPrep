@@ -13,8 +13,8 @@
         android:layout_alignEnd="@+id/lvFilterRecipeList"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/lvFilterRecipeList"
-        android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="@string/tvRecipeFilterTitle" />
 
@@ -26,51 +26,54 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tvIngFilterTitle"
         android:layout_marginBottom="40dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:choiceMode="multipleChoice"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp" />
 
 
     <LinearLayout
+        android:id="@+id/llButtonManager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/llButtonManager"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/tvIngFilterTitle"
-        android:layout_alignStart="@+id/lvFilterRecipeList">
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/lvFilterRecipeList"
-        android:background="@drawable/btn_yellow_shadow"
-        android:paddingBottom="6dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="18dp"
-        android:paddingTop="3dp"
-        android:layout_marginBottom="40dp"
-        android:text="@string/btnIngFilterSave"
-        android:textColor="@color/PantryWhite" />
+        android:layout_toEndOf="@+id/tvIngFilterTitle">
 
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignEnd="@+id/lvFilterRecipeList"
-        android:layout_below="@+id/lvFilterRecipeList"
-        android:background="@drawable/btn_orange_shadow"
-        android:paddingBottom="6dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="18dp"
-        android:layout_marginLeft="70dp"
-        android:paddingTop="3dp"
-        android:layout_marginBottom="40dp"
-        android:text="@string/btnIngFilterCancel"
-        android:textColor="@color/PantryWhite" />
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/lvFilterRecipeList"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/btn_yellow_shadow"
+            android:paddingBottom="6dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="18dp"
+            android:paddingTop="3dp"
+            android:text="@string/btnIngFilterSave"
+            android:textColor="@color/PantryWhite"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignEnd="@+id/lvFilterRecipeList"
+            android:layout_below="@+id/lvFilterRecipeList"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="70dp"
+            android:background="@drawable/btn_orange_shadow"
+            android:paddingBottom="6dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="18dp"
+            android:paddingTop="3dp"
+            android:text="@string/btnIngFilterCancel"
+            android:textColor="@color/PantryWhite"
+            android:textSize="12sp" />
     </LinearLayout>
 
 </RelativeLayout>

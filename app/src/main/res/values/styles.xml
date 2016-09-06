@@ -112,6 +112,31 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <style name="IngredientsAddTitle">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_ingredients_add_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="IngredientsAddDetail">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_ingredients_add_detail</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+
+    <style name="IngredientsDeleteTitle">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_ingredients_delete_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="IngredientsDeleteDetail">
+        <item name="android:textColor">@color/PantryBlack</item>
+        <item name="android:textSize">@dimen/text_ingredients_delete_detail</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
 
 
 

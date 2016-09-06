@@ -15,6 +15,10 @@
         <item name="nutritionAmount">@style/NutritionAmount</item>
         <item name="ingredientsFilterTitle">@style/IngredientsFilterTitle</item>
         <item name="ingredientsFilterDetail">@style/IngredientsFilterDetail</item>
+        <item name="ingredientsAddTitle">@style/IngredientsAddTitle</item>
+        <item name="ingredientsAddDetail">@style/IngredientsAddDetail</item>
+        <item name="ingredientsDeleteTitle">@style/IngredientsAddTitle</item>
+        <item name="ingredientsDeleteDetail">@style/IngredientsAddDetail</item>
 
 
         <item name="actionBarStyle">@style/action_bar</item>

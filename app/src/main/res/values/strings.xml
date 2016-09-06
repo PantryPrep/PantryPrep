@@ -13,7 +13,7 @@
     <string name="allIngredients">All Ingredients</string>
     <string name="ingredientGroupTitle">Type of ingredient: </string>
     <string name="expDateTitle">Expiration date: </string>
-    <string name="saveIngredientTitle">Save</string>
+    <string name="saveIngredientTitle">Create</string>
     <string name="ingredientListTitle">Ingredient Name</string>
     <string name="ingredientListType">Ingredient Type</string>
     <string name="btnIngFilterSave">Save</string>
@@ -50,5 +50,6 @@
     <string name="btDeleteCancel">Cancel</string>
     <string name="btnExitNutrition">Close</string>
     <string name="tvRecipeFilterTitle">Ingredient Filter</string>
+    <string name="tvAddIngTitle">New Ingredient</string>
 
 </resources>

@@ -1,71 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/add_ingredient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/etIngredientAddTitle"
-        android:layout_margin="12dp"
-        android:hint="@string/ingredient_hint"
-        android:singleLine="true"
-        android:imeOptions="actionDone"
-        android:inputType="textAutoCorrect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    android:id="@+id/add_ingredient"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/typeRadioTitle"
-        android:layout_margin="12dp"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:text="@string/ingredientGroupTitle"
-        android:layout_below="@+id/etIngredientAddTitle"
+        android:id="@+id/tvAddIngTitle"
+        style="?ingredientsAddTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/tvAddIngTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/etIngredientAddTitle"
+        style="?ingredientsAddDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvAddIngTitle"
+        android:layout_below="@id/tvAddIngTitle"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:hint="@string/ingredient_hint"
+        android:imeOptions="actionDone"
+        android:inputType="textAutoCorrect"
+        android:singleLine="true" />
 
     <RadioGroup
         android:id="@+id/radioGroupType"
-        android:layout_marginLeft="64dp"
-        android:layout_below="@+id/typeRadioTitle"
-        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etIngredientAddTitle"
+        android:layout_marginLeft="64dp"
+        android:orientation="vertical">
+
         <RadioButton
             android:id="@+id/radioProtein"
-            android:text="@string/protein"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/protein"
+            style="?ingredientsAddDetail"/>
+
         <RadioButton
             android:id="@+id/radioVeggies"
-            android:text="@string/veggies"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/veggies"
+            style="?ingredientsAddDetail"/>
+
         <RadioButton
             android:id="@+id/radioDairy"
-            android:text="@string/dairy"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/dairy"
+            style="?ingredientsAddDetail"/>
+
         <RadioButton
             android:id="@+id/radioFruit"
-            android:text="@string/fruit"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/fruit"
+            style="?ingredientsAddDetail"/>
+
         <RadioButton
             android:id="@+id/radioSpices"
-            android:text="@string/spices"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/spices"
+            style="?ingredientsAddDetail"/>
+
     </RadioGroup>
 
-    <Button
-        android:id="@+id/btSaveIngredient"
-        android:layout_marginTop="24dp"
-        android:layout_marginRight="64dp"
-        android:layout_below="@+id/radioGroupType"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:text="@string/saveIngredientTitle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroupType"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="25dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnCancelIngredient"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/btn_orange_shadow"
+            android:paddingBottom="6dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="18dp"
+            android:paddingTop="3dp"
+            android:text="@string/btDeleteCancel"
+            android:textColor="@color/PantryWhite"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btSaveIngredient"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/btn_yellow_shadow"
+            android:paddingBottom="6dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="18dp"
+            android:paddingTop="3dp"
+            android:text="@string/saveIngredientTitle"
+            android:textColor="@color/PantryWhite"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>

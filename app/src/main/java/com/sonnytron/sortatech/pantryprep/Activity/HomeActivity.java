@@ -2,6 +2,7 @@ package com.sonnytron.sortatech.pantryprep.Activity;
 
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class HomeActivity extends AppCompatActivity  {
 
         PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabMenu);
         tabStrip.setViewPager(viewPager);
+        tabStrip.setBackgroundColor(ContextCompat.getColor(this, R.color.PantryOrange));
 
         AssetManager am = this.getAssets();
 
