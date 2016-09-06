@@ -3,10 +3,8 @@ package com.sonnytron.sortatech.pantryprep.Adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.SparseArray;
 
 import com.sonnytron.sortatech.pantryprep.Fragments.IngredientFilters.IngredientsAllFragment;
-import com.sonnytron.sortatech.pantryprep.Fragments.IngredientsListFragment;
 import com.sonnytron.sortatech.pantryprep.Fragments.RecipeListFragment;
 
 /**
@@ -14,7 +12,6 @@ import com.sonnytron.sortatech.pantryprep.Fragments.RecipeListFragment;
  */
 public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     private String tabTitles[] = new String[] { "Ingredients", "Recipes" };
-    private SparseArray<Fragment> fragments;
 
     public HomeFragmentPagerAdapter(FragmentManager manager) {
         super(manager);
