@@ -6,8 +6,8 @@
     <!-- new items -->
 
     <!--ingredients dimens-->
-    <dimen name="text_ingredient_title">18sp</dimen>
-    <dimen name="text_ingredient_detail">12sp</dimen>
+    <dimen name="text_ingredient_title">16sp</dimen>
+    <dimen name="text_ingredient_detail">11sp</dimen>
 
     <dimen name="text_recipe_list_title">15sp</dimen>
     <dimen name="text_recipe_list_detail">11sp</dimen>

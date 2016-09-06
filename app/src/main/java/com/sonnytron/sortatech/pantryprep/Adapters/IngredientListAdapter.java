@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.sonnytron.sortatech.pantryprep.Models.Ingredient;
 import com.sonnytron.sortatech.pantryprep.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 
 /**
  * Created by sonnyrodriguez on 8/22/16.
@@ -83,16 +86,18 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
             tvIngredientType.setText(daysRemaining);
             tvIngredientType.setTypeface(sansFont);
 
+
+
             if (mIngredient.getType().equals("protein")) {
-                Picasso.with(mContext).load(R.drawable.nav_protein).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
+                Glide.with(mContext).load(R.drawable.nav_protein).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("dairy")) {
-                Picasso.with(mContext).load(R.drawable.nav_dairy).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
+                Glide.with(mContext).load(R.drawable.nav_dairy).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("fruit")) {
-                Picasso.with(mContext).load(R.drawable.nav_fruit).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
+                Glide.with(mContext).load(R.drawable.nav_fruit).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
             } else if (mIngredient.getType().equals("veggies")) {
-                Picasso.with(mContext).load(R.drawable.nav_veggies).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
+                Glide.with(mContext).load(R.drawable.nav_veggies).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
             } else {
-                Picasso.with(mContext).load(R.drawable.nav_spices).transform(new CropCircleTransformation()).into(ivIngredientPhoto);
+                Glide.with(mContext).load(R.drawable.nav_spices).bitmapTransform(new CropCircleTransformation(mContext)).into(ivIngredientPhoto);
             }
         }
 
