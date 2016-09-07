@@ -1,6 +1,6 @@
 # Pantry Prep
 
-The PantryPrep application is an Android application built in Java that helps you utilize every ingredient in your pantry, ranging from fresh ingredients with a short shelf life to long-lasting spices. The application automatically sorts your added pantry items and gives them a shelf-life so that you will be warned when the ingredients are expiring.  A stretch goal is to allow users to search for suitable recipes based on their pantry ingredients, utilizing the ingredients in danger of expiring first.  
+The PantryPrep application is an Android application built in Java that helps you utilize every ingredient in your pantry, ranging from fresh ingredients with a short shelf life to long-lasting spices. The application automatically sorts your added pantry items and gives them a shelf-life, and warns you when the ingredients are expiring.  The application then searches online utilizing those ingredients and suggest recipes that you can make that utilizes those ingredients, complete with links to the website for instructions on how to make the recipe and nutritional information.  If the recipe search doesn't return a result, you can filter your pantry ingredients to perform a simpler search and use up your pantry ingredients over multiple dishes.  
 
 ## User Stories
 
