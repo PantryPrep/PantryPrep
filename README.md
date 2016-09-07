@@ -2,20 +2,14 @@
 
 The PantryPrep application is an Android application built in Java that helps you utilize every ingredient in your pantry, ranging from fresh ingredients with a short shelf life to long-lasting spices. The application automatically sorts your added pantry items and gives them a shelf-life so that you will be warned when the ingredients are expiring.  A stretch goal is to allow users to search for suitable recipes based on their pantry ingredients, utilizing the ingredients in danger of expiring first.  
 
-![Pantry Prep Gif](/PantryPrepOne.gif "An animated image showing use.")
-
 ## User Stories
 
 The following are core story functionality:
 
- * [ ] User will need to create their “pantry”, an inventory of what they currently have.  This includes: 
+ * [x] User will need to create their “pantry”, an inventory of what they currently have.  This includes: 
 	* Ingredient
-	* Cost
-	* Amount + unit of measure
 	* Type of ingredient (from predetermined list)
-	* Expiration date override (otherwise use existing expiration dates)
-	* Custom camera picture, otherwise will use default placeholder. 
-
+	* A default expiration date. 
 * [x] SQL Lite server will store data locally.  
 * [X] Inventory of pantry ingredients in a list 
 * [x] Drawer on left hand side to select ingredients or recipes. 
@@ -32,11 +26,13 @@ The following are optional features:
 
 * [ ] User can share “I made this!” with completed recipe and list of ingredients
 * [ ] User can tap “Wasted Food” and see list of expired ingredients
+* * [ ] Expired food items are added to a "Wasted Food" list in a separate screen that tallies up your cost.  
 * [X] Nutrition breakdown (calories, fat, vitamins, sodium)
 * [ ] As user is typing ingredient name auto complete
 * [ ] social media aspects: add photo functionality to share with facebook/twitter/
 * [X] Select recipe based on only ingredients you have
-* [ ] Expired food items are added to a "Wasted Food" list in a separate screen that tallies up your cost.  
+* [ ] Add Cost and Amount to the ingredients list. 
+* [ ] Add expiration date override. 
 
 
 
@@ -44,9 +40,9 @@ The following are optional features:
 
 Here's a walkthrough of implemented user stories:
 
+https://vimeo.com/181699097
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
+pw: PantryPrepCodepath2016
 
 ## Notes
 
@@ -54,6 +50,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Open-source libraries used
 
+Glide, Glide Transforms, pager sliding tabstrip, retrofit, picasso.
+Ingredients Icons from flaticon.com
 
 
 ## License
